@@ -19,8 +19,8 @@ int getsum(int s,int t,int p,int l,int r){
         b[p*2]+=b[p],b[p*2+1]+=b[p];
         b[p]=0;
     }
-    if(l<=m)sum+=getsum(l,r,s,m,p*2);
-    if(r>m) sum+=getsum(l,r,m+1,t,p*2+1);
+    if(l<=m)sum+=getsum(s,m,p*2,l,r);
+    if(r>m) sum+=getsum(m+1,t,p*2+1,l,r);
     return sum;
 }
 
@@ -36,7 +36,7 @@ void update(int s,int t,int p,int l,int r,int c) {  // difference c
         b[p*2]+=b[p],b[p*2+1]+=b[p];
         b[p]=0;
     }
-    if(l<=m)update(l,r,c,s,m,p*2);
-    if(r>m) update(l,r,c,m+1,t,p*2+1);
+    if(l<=m)update(s,m,p*2,l,r,c);
+    if(r>m) update(m+1,t,p*2+1,l,r,c);
     d[p]=d[p*2]+d[p*2+1];
 }

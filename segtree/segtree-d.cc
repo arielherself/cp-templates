@@ -9,8 +9,8 @@ void update(int s,int t,int &p,int x,int c){  // add constant c to #x
         return;
     }
     int m=s+(t-s>>1);
-    if(x<=m)update(ls[p],s,m,x,c);
-    else    update(rs[p],m+1,t,x,c);
+    if(x<=m)update(s,m,ls[p],x,c);
+    else    update(m+1,t,rs[p],x,c);
     d[p]=d[ls[p]]+d[rs[p]];
 }
 
@@ -18,7 +18,7 @@ int query(int s,int t,int p,int l,int r){  // query range [l,r]
     if(!p)return 0;
     if(l<=s&&t<=r)return d[p];
     int m=s+(t-s>>1),sum=0;
-    if(l<=m)sum+=query(ls[p],s,m,l,r);
-    if(r>m) sum+=query(rs[p],m+1,t,l,r);
+    if(l<=m)sum+=query(s,m,ls[p],l,r);
+    if(r>m) sum+=query(m+1,t,rs[p],l,r);
     return sum;
 }
