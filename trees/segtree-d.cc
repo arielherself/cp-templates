@@ -1,5 +1,5 @@
 constexpr int MAXN=1e5+10;
-int n,cnt,root;
+int cnt,root;
 int d[MAXN*2],ls[MAXN*2],rs[MAXN*2];
 
 void update(int s,int t,int &p,int x,int c){  // add constant c to #x
