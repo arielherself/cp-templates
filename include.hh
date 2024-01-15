@@ -9,7 +9,7 @@ using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
 
 #define read(x, type) type x; cin >> x;
-#define readvec(a, n, type) vector<type> a; for (int i = 0; i < (n); ++i) cin >> a[i];
+#define readvec(a, n, type) vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];
 
 #define lowbit(x) ((x) & -(x))
 #define popcount(x) (__builtin_popcountll(ll(x)))
@@ -40,3 +40,4 @@ struct igt {
         else return i1(a) > i1(b);
     }
 };
+
