@@ -42,6 +42,7 @@ struct igt {
 #define readvec(a, n, type) vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];
 #define putvec(a) for (auto&& x : a) cout << x << ' '; cout << endl;
 #define debug(x) cerr << #x" = " << x << endl;
+#define debugvec(a) cerr << #a" = "; for (auto&& x : a) cerr << x << ' '; cerr << endl;
 
 #define pa(a) __typeof(a) pa; pa.push_back({}); for (auto&&x : a) pa.push_back(pa.back() + x);
 #define sa(a) __typeof(a) sa(a.size() + 1); {int n = a.size(); for (int i = n - 1; i >= 0; --i) sa[i] = sa[i + 1] + a[i];};
