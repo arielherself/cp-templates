@@ -2,6 +2,8 @@
 using namespace std;
 
 #define __NARGS(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
+#define __decompose_s(a, x) auto x = a;
+#define __decompose_n(a, ...) auto [__VA_ARGS__] = a;
 
 using ll = int64_t;
 using ull = uint64_t;
@@ -51,6 +53,10 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 
 #define pa(a) __typeof(a) pa; pa.push_back({}); for (auto&&x : a) pa.push_back(pa.back() + x);
 #define sa(a) __typeof(a) sa(a.size() + 1); {int n = a.size(); for (int i = n - 1; i >= 0; --i) sa[i] = sa[i + 1] + a[i];};
+
+#define poptop(q, ...) auto [__VA_ARGS__] = q.top(); q.pop();
+#define popback(q, ...) auto [__VA_ARGS__] = q.back(); q.pop_back();
+#define popfront(q, ...) auto [__VA_ARGS__] = q.front();q.pop_front();
 
 #define adj(ch, n) vector<vector<int>> ch(n);
 #define edge(ch, u, v) ch[u].push_back(v), ch[v].push_back(u);
