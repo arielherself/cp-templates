@@ -8,9 +8,6 @@ using pil = pair<int, ll>;
 using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
 
-#define read(x, type) type x; cin >> x;
-#define readvec(a, n, type) vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];
-
 #define lowbit(x) ((x) & -(x))
 #define popcount(x) (__builtin_popcountll(ll(x)))
 #define parity(x) (__builtin_parityll(ll(x)))
@@ -41,3 +38,10 @@ struct igt {
     }
 };
 
+#define read(x, type) type x; cin >> x;
+#define readvec(a, n, type) vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];
+#define putvec(a) for (auto&& x : a) cout << x << ' '; cout << endl;
+#define debug(x) cerr << #x" = " << x << endl;
+
+#define pa(a) __typeof(a) pa; pa.push_back({}); for (auto&&x : a) pa.push_back(pa.back() + x);
+#define sa(a) __typeof(a) sa(a.size() + 1); {int n = a.size(); for (int i = n - 1; i >= 0; --i) sa[i] = sa[i + 1] + a[i];};
