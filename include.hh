@@ -51,3 +51,7 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 
 #define pa(a) __typeof(a) pa; pa.push_back({}); for (auto&&x : a) pa.push_back(pa.back() + x);
 #define sa(a) __typeof(a) sa(a.size() + 1); {int n = a.size(); for (int i = n - 1; i >= 0; --i) sa[i] = sa[i + 1] + a[i];};
+
+#define adj(n) vector<vector<int>> ch(n);
+#define edge(ch, u, v) ch[u].push_back(v), ch[v].push_back(u);
+#define Edge(ch, u, v) ch[u].push_back(v);
