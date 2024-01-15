@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+#define __NARGS(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
+
 using ll = int64_t;
 using ull = uint64_t;
 using pii = pair<int, int>;
@@ -38,8 +40,11 @@ struct igt {
     }
 };
 
-#define read(x, type) type x; cin >> x;
-#define readvec(a, n, type) vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];
+#define untie ios_base::sync_with_stdio(0), cin.tie(NULL)
+template<typename T> void __read(T& x) { cin >> x; }
+template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __read(args...); }
+#define read(type, ...) type __VA_ARGS__; __read(__VA_ARGS__);
+#define readvec(type, a, n) vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];
 #define putvec(a) for (auto&& x : a) cout << x << ' '; cout << endl;
 #define debug(x) cerr << #x" = " << x << endl;
 #define debugvec(a) cerr << #a" = "; for (auto&& x : a) cerr << x << ' '; cerr << endl;
