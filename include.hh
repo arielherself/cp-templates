@@ -58,6 +58,6 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define popback(q, ...) auto [__VA_ARGS__] = q.back(); q.pop_back();
 #define popfront(q, ...) auto [__VA_ARGS__] = q.front();q.pop_front();
 
-#define adj(ch, n) vector<vector<int>> ch(n);
+#define adj(ch, n) vector<vector<int>> ch((n) + 1);
 #define edge(ch, u, v) ch[u].push_back(v), ch[v].push_back(u);
 #define Edge(ch, u, v) ch[u].push_back(v);
