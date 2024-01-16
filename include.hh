@@ -38,6 +38,9 @@ constexpr ull MDL2 = 87825;
 #define msp(x) (63LL - __builtin_clzll(ll(x)))
 #define lsp(x) (__builtin_ctzll(ll(x)))
 
+/* arithmetic operations */
+#define mod(x, y) (((x) + (y)) % (y))
+
 /* fast pairs */
 #define upair ull
 #define umake(x, y) (ull(x) << 32 | ull(y))
