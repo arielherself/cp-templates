@@ -25,8 +25,9 @@ using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
 
 /* constants */
+constexpr int INF = 0x3f3f3f3f;
 constexpr ull MDL = 1e9 + 7;
-constexpr ull PRIME = 998244353;
+constexpr ull PRIME = 998'244'353;
 constexpr ull MDL1 = 825;
 constexpr ull MDL2 = 87825;
 
@@ -64,6 +65,7 @@ struct igt {
 
 /* conditions */
 #define loop while (1)
+#define if_or(var, val) if (!(var == val)) var = val; else
 #define continue_or(var, val) __AS_PROCEDURE(if (var == val) continue; var = val;)
 #define break_or(var, val) __AS_PROCEDURE(if (var == val) break; var = val;)
 
