@@ -6,6 +6,7 @@ using namespace std;
 #define __DECOMPOSE_N(a, ...) auto [__VA_ARGS__] = a;
 constexpr void __() {}
 #define __AS_PROCEDURE(...) __(); __VA_ARGS__; __()
+#define __as_typeof(container) decltype(container)::value_type
 
 using ll = int64_t;
 using ull = uint64_t;
@@ -49,6 +50,8 @@ struct igt {
     }
 };
 
+#define unordered_counter(from, to) __AS_PROCEDURE(unordered_map<__as_typeof(from), size_t> to; for (auto&& x : from) ++to[x];)
+#define counter(from, to, cmp) __AS_PROCEDURE(map<__as_typeof(from), size_t, cmp> to; for (auto&& x : from) ++to[x];)
 #define untie __AS_PROCEDURE(ios_base::sync_with_stdio(0), cin.tie(NULL))
 template<typename T> void __read(T& x) { cin >> x; }
 template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __read(args...); }
