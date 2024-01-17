@@ -97,8 +97,8 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define popfront(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.front();q.pop_front();)
 
 /* algorithms */
-vector<int> kmp(string s, string t) {  // find all t in s
-    int n = s.length(), m = t.length();
+vector<int> calc_next(string t) {  // pi function of t
+    int m = t.length();
     vector<int> next; next.push_back(-1);
     int j = -1, i = 0;
     while (i < m)
@@ -107,8 +107,30 @@ vector<int> kmp(string s, string t) {  // find all t in s
             if (i != m && t[i] == t[j]) next.push_back(next[j]);
             else next.push_back(j);
         } else j = next[j];
+    return next;
+}
+vector<int> calc_z(string t) {  // z function of t
+    int m = t.length();
+    vector<int> z;
+    z.push_back(m);
+    pair<int, int> prev = {1, -1};
+    for (int i = 1; i < m; ++i) {
+        if (z[i - prev.first] + i <= prev.second) {
+            z.push_back(z[i - prev.first]);
+        } else {
+            int j = max(i, prev.second + 1);
+            while (j < m && t[j] == t[j - i]) ++j;
+            z.push_back(j - i);
+            prev = {i, j - 1};
+        }
+    }
+    return z;
+}
+vector<int> kmp(string s, string t) {  // find all t in s
+    int n = s.length(), m = t.length();
+    vector<int> next= calc_next(t);
     vector<int> res;
-    i = 0, j = 0;
+    int i = 0, j = 0;
     while (i < n && j < m)
         if (j == -1 || s[i] == t[j]) {
             ++i, ++j;
