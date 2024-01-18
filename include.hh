@@ -136,4 +136,14 @@ vector<int> kmp(string s, string t) {  // find all t in s
   }
   return v;
 }
+int period(string s) {  // find the length of shortest recurring period
+    int n = s.length();
+    auto z = calc_z(s);
+    for (int i = 1; i <= n / 2; ++i) {
+        if (n % i == 0 && z[i] == n - i) {
+            return i;
+        }
+    }
+    return n;
+}
 /////////////////////////////////////////////////////////
