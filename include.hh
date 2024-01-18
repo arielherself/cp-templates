@@ -97,17 +97,17 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define popfront(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.front();q.pop_front();)
 
 /* algorithms */
+
 vector<int> calc_next(string t) {  // pi function of t
-    int m = t.length();
-    vector<int> next; next.push_back(-1);
-    int j = -1, i = 0;
-    while (i < m)
-        if (j == -1 || t[i] == t[j]) {
-            ++i, ++j;
-            if (i != m && t[i] == t[j]) next.push_back(next[j]);
-            else next.push_back(j);
-        } else j = next[j];
-    return next;
+  int n = (int)t.length();
+  vector<int> pi(n);
+  for (int i = 1; i < n; i++) {
+    int j = pi[i - 1];
+    while (j > 0 && t[i] != t[j]) j = pi[j - 1];
+    if (t[i] == t[j]) j++;
+    pi[i] = j;
+  }
+  return pi;
 }
 vector<int> calc_z(string t) {  // z function of t
     int m = t.length();
@@ -127,15 +127,13 @@ vector<int> calc_z(string t) {  // z function of t
     return z;
 }
 vector<int> kmp(string s, string t) {  // find all t in s
-    int n = s.length(), m = t.length();
-    vector<int> next= calc_next(t);
-    vector<int> res;
-    int i = 0, j = 0;
-    while (i < n && j < m)
-        if (j == -1 || s[i] == t[j]) {
-            ++i, ++j;
-            if (j == m) res.push_back(i - j), j = next[j];
-        } else j = next[j];
-    return res;
+  string cur = t + '#' + s;
+  int sz1 = s.size(), sz2 = t.size();
+  vector<int> v;
+  vector<int> lps = calc_next(cur);
+  for (int i = sz2 + 1; i <= sz1 + sz2; i++) {
+    if (lps[i] == sz2) v.push_back(i - 2 * sz2);
+  }
+  return v;
 }
 /////////////////////////////////////////////////////////
