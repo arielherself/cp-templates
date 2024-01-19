@@ -88,8 +88,12 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define read(type, ...) __AS_PROCEDURE(type __VA_ARGS__; __read(__VA_ARGS__);)
 #define readvec(type, a, n) __AS_PROCEDURE(vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];)
 #define putvec(a) __AS_PROCEDURE(for (auto&& x : a) cout << x << ' '; cout << endl;)
-#define debug(x) __AS_PROCEDURE(cerr << #x" = " << x << endl;)
+#define debug(x) __AS_PROCEDURE(cerr << #x" = " << (x) << endl;)
 #define debugvec(a) __AS_PROCEDURE(cerr << #a" = "; for (auto&& x : a) cerr << x << ' '; cerr << endl;)
+template<typename T> ostream& operator<<(ostream& out, vector<T> vec) {
+    for (auto&& i : vec) out << i << ' ';
+    return out;
+}
 
 /* pops */
 #define poptop(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.top(); q.pop();)
