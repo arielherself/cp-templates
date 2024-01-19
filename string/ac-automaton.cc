@@ -54,7 +54,7 @@ void solve(vector<string> ss, string t) {
     int curr = 0;
     for (auto&& c : t) {
         int x = c - 'a';
-        if (!trie[curr][x]) curr = fail[curr];
+        // if (!trie[curr][x]) curr = fail[curr];
         curr = trie[curr][x];
         oc[curr] += 1;
     }
