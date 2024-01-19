@@ -31,17 +31,17 @@ void solve(vector<string> ss, string t) {
     // build fail
     vector<int> fail(last + 1);
     vector<vector<int>> suc(last + 1);
-    deque<pair<int, int>> dq;
+    deque<int> dq;
     for (int i = 0; i < 26; ++i) {
-        if (trie[0][i]) dq.emplace_back(trie[0][i], trie[0][i]), suc[0].push_back(trie[0][i]);
+        if (trie[0][i]) dq.push_back(trie[0][i]), suc[0].push_back(trie[0][i]);
     }
     while (dq.size()) {
-        popfront(dq, c, rt);
+        int c = dq.front(); dq.pop_front();
         for (int i = 0; i < 26; ++i) {
             if (trie[c][i]) {
                 fail[trie[c][i]] = trie[fail[c]][i];
                 suc[trie[fail[c]][i]].push_back(trie[c][i]);
-                dq.emplace_back(trie[c][i], rt);
+                dq.push_back(trie[c][i]);
             } else {
                 trie[c][i] = trie[fail[c]][i];
             }
