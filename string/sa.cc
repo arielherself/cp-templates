@@ -9,7 +9,7 @@ const int N = 1000010;
 
 char s[N];
 // key1[i] = rk[id[i]]（作为基数排序的第一关键字数组）
-int n, sa[N], rk[N], oldrk[N << 1], id[N], key1[N], cnt[N];
+int n, sa[N], rk[N], oldrk[N << 1], id[N], key1[N], cnt[N], height[N];
 
 bool cmp(int x, int y, int w) {
   return oldrk[x] == oldrk[y] && oldrk[x + w] == oldrk[y + w];
@@ -20,6 +20,8 @@ int main() {
 
   scanf("%s", s + 1);
   n = strlen(s + 1);
+
+  // calc sa[]
   for (i = 1; i <= n; ++i) ++cnt[rk[i] = s[i]];
   for (i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
   for (i = n; i >= 1; --i) sa[cnt[rk[i]]--] = i;
@@ -41,6 +43,14 @@ int main() {
     if (p == n) {
       break;
     }
+  }
+
+  // calc height[]
+  for (i = 1, k = 0; i <= n; ++i) {
+    if (rk[i] == 0) continue;
+    if (k) --k;
+    while (s[i + k] == s[sa[rk[i] - 1] + k]) ++k;
+    height[rk[i]] = k;
   }
 
   for (i = 1; i <= n; ++i) printf("%d ", sa[i]);
