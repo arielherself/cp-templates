@@ -35,6 +35,15 @@ void calc_sa() {
       }
 }
 
+void calc_height() {
+  for (i = 1, k = 0; i <= n; ++i) {
+    if (rk[i] == 0) continue;
+    if (k) --k;
+    while (s[i + k] == s[sa[rk[i] - 1] + k]) ++k;
+    height[rk[i]] = k;
+  }
+}
+
 int main() {
     untie;
     cin >> (s + 1);  // array s starts from index 1
