@@ -86,7 +86,7 @@ public:
 
     void clear() {
         _size = root = cnt = 0;
-        fill(fhq.begin(), fhq.end(), {});
+        fill(fhq.begin(), fhq.end(), Node());
     }
 
     void insert(value_type val) {
