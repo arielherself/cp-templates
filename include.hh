@@ -1,3 +1,4 @@
+#pragma GCC optimize("Ofast")
 /////////////////////////////////////////////////////////
 /**
  * Useful Macros
@@ -6,7 +7,10 @@
  */
 
 #include<bits/stdc++.h>
+#include<bits/extc++.h>
 using namespace std;
+using namespace __gnu_cxx;
+using namespace __gnu_pbds;
 
 /* macro helpers */
 #define __NARGS(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
@@ -43,7 +47,7 @@ constexpr ull MDL2 = 87825;
 
 /* fast pairs */
 #define upair ull
-#define umake(x, y) (ull(x) << 32 | ull(y))
+#define umake(x, y) (ull(x) << 32 | (ull(y) & ((1ULL << 32) - 1)))
 #define u1(p) ((p) >> 32)
 #define u2(p) ((p) & ((1ULL << 32) - 1))
 #define ult std::less<upair>
@@ -51,8 +55,8 @@ constexpr ull MDL2 = 87825;
 
 #define ipair ull
 #define imake(x, y) (umake(x, y))
-#define i1(p) (int(u1(p)))
-#define i2(p) (int(u2(p)))
+#define i1(p) (int(u1(ll(p))))
+#define i2(p) (ll(u2(p) << 32) >> 32)
 struct ilt {
     bool operator()(const ipair& a, const ipair& b) const {
         if (i1(a) == i1(b)) return i2(a) < i2(b);
@@ -72,8 +76,25 @@ struct igt {
 #define continue_or(var, val) __AS_PROCEDURE(if (var == val) continue; var = val;)
 #define break_or(var, val) __AS_PROCEDURE(if (var == val) break; var = val;)
 
+/* hash */
+struct safe_hash {
+    // https://codeforces.com/blog/entry/62393
+    static uint64_t splitmix64(uint64_t x) {
+        // http://xorshift.di.unimi.it/splitmix64.c
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
 /* build data structures */
-#define unordered_counter(from, to) __AS_PROCEDURE(unordered_map<__as_typeof(from), size_t> to; for (auto&& x : from) ++to[x];)
+#define unordered_counter(from, to) __AS_PROCEDURE(unordered_map<__as_typeof(from), size_t, safe_hash> to; for (auto&& x : from) ++to[x];)
 #define counter(from, to, cmp) __AS_PROCEDURE(map<__as_typeof(from), size_t, cmp> to; for (auto&& x : from) ++to[x];)
 #define pa(a) __AS_PROCEDURE(__typeof(a) pa; pa.push_back({}); for (auto&&x : a) pa.push_back(pa.back() + x);)
 #define sa(a) __AS_PROCEDURE(__typeof(a) sa(a.size() + 1); {int n = a.size(); for (int i = n - 1; i >= 0; --i) sa[i] = sa[i + 1] + a[i];};)
