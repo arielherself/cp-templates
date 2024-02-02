@@ -93,6 +93,18 @@ struct safe_hash {
     }
 };
 
+struct pair_hash {
+    template <typename T, typename U>
+    size_t operator()(const pair<T, U>& a) const {
+        auto hash1 = safe_hash()(a.first);
+        auto hash2 = safe_hash()(a.second);
+        if (hash1 != hash2) {
+            return hash1 ^ hash2;
+        }
+        return hash1;
+    }
+};
+
 /* build data structures */
 #define unordered_counter(from, to) __AS_PROCEDURE(unordered_map<__as_typeof(from), size_t, safe_hash> to; for (auto&& x : from) ++to[x];)
 #define counter(from, to, cmp) __AS_PROCEDURE(map<__as_typeof(from), size_t, cmp> to; for (auto&& x : from) ++to[x];)
