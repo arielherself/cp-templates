@@ -5,15 +5,16 @@ private:
     template <typename T> static constexpr auto __map_types(T _t) {
         return make_tuple(std::priority_queue<_Tp, _Sequence, T>(_t));
     }
+
     template <typename T, typename... U> static constexpr auto __map_types(T _t, U... _o) {
         return tuple_cat(make_tuple(std::priority_queue<_Tp, _Sequence, T>(_t)), __map_types(_o...));
     }
 
-    template <typename T> static constexpr void __push(_Tp _val, T& _c) {
+    template <typename T> static constexpr void __push(const _Tp& _val, T& _c) {
         _c.push(_val);
     }
 
-    template <typename T, typename... U> static constexpr void __push(_Tp _val, T& _c, U&... _o) {
+    template <typename T, typename... U> static constexpr void __push(const _Tp& _val, T& _c, U&... _o) {
         __push(_val, _c);
         __push(_val, _o...);
     }
@@ -41,12 +42,12 @@ private:
 
         template <size_t i> constexpr void pop() {
             __roll<i>();
-            _count[get<i>(_content).top()] -= 1;
+            _count[top<i>()] -= 1;
             --_size;
             get<i>(_content).pop();
         }
 
-        constexpr void push(_Tp __val) {
+        constexpr void push(const _Tp& __val) {
             _count[__val] += 1;
             ++_size;
             apply([&] (auto&... cs) { __push(__val, cs...); }, _content);
@@ -60,7 +61,7 @@ private:
             return !_size;
         }
 
-        template <typename... T> constexpr void emplace(T... _val) {
+        template <typename... T> constexpr void emplace(const T&... _val) {
             push(_Tp(_val...));
         }
     };
@@ -68,6 +69,6 @@ private:
 public:
     template<typename... _T_cs> static auto make(tuple<_T_cs...> _comp) {
         auto _container = apply([&](auto... all) { return __map_types(all...); }, _comp);
-        return __assoc_heap<decltype(_container), tuple<_T_cs...>>(_container, _comp);
+        return __assoc_heap<decltype(_container), tuple<_T_cs...>>(_container, std::move(_comp));
     }
 };
