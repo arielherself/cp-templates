@@ -35,7 +35,7 @@ private:
         __assoc_heap(_Tc _content, _T_CC _comp) :
             _content(_content), _comp(_comp), _size(0) {}
 
-        template <size_t i> constexpr _Tp top() {
+        template <size_t i> constexpr const _Tp& top() {
             __roll<i>();
             return get<i>(_content).top();
         }
@@ -67,8 +67,9 @@ private:
     };
 
 public:
-    template<typename... _T_cs> static auto make(tuple<_T_cs...> _comp) {
-        auto _container = apply([&](auto... all) { return __map_types(all...); }, _comp);
-        return __assoc_heap<decltype(_container), tuple<_T_cs...>>(_container, std::move(_comp));
+    template<typename... _T_cs> static auto make(_T_cs... _comp) {
+        auto comp = make_tuple(_comp...);
+        auto _container = apply([&](auto... all) { return __map_types(all...); }, comp);
+        return __assoc_heap<decltype(_container), tuple<_T_cs...>>(_container, std::move(comp));
     }
 };
