@@ -43,7 +43,7 @@ constexpr ull MDL2 = 87825;
 #define lsp(x) (__builtin_ctzll(ll(x)))
 
 /* arithmetic operations */
-#define mod(x, y) (((x) + (y)) % (y))
+#define mod(x, y) (((x) % (y) + (y)) % (y))
 
 /* fast pairs */
 #define upair ull
@@ -90,18 +90,6 @@ struct safe_hash {
     size_t operator()(uint64_t x) const {
         static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
         return splitmix64(x + FIXED_RANDOM);
-    }
-};
-
-struct pair_hash {
-    template <typename T, typename U>
-    size_t operator()(const pair<T, U>& a) const {
-        auto hash1 = safe_hash()(a.first);
-        auto hash2 = safe_hash()(a.second);
-        if (hash1 != hash2) {
-            return hash1 ^ hash2;
-        }
-        return hash1;
     }
 };
 
