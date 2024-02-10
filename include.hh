@@ -133,8 +133,23 @@ template<typename T> ostream& operator<<(ostream& out, vector<T> vec) {
 #define popback(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.back(); q.pop_back();)
 #define popfront(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.front();q.pop_front();)
 
-/* algorithms */
+/* math */
+void __exgcd(ll a, ll b, ll& x, ll& y) {
+  if (b == 0) {
+    x = 1, y = 0;
+    return;
+  }
+  __exgcd(b, a % b, y, x);
+  y -= a / b * x;
+}
 
+ll inverse(ll a, ll b) {
+    ll x, y;
+    __exgcd(a, b, x, y);
+    return mod(x, b);
+}
+
+/* string algorithms */
 vector<int> calc_next(string t) {  // pi function of t
   int n = (int)t.length();
   vector<int> pi(n);
