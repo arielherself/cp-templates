@@ -33,7 +33,7 @@ constexpr int INF = 0x3f3f3f3f;
 constexpr ull MDL = 1e9 + 7;
 constexpr ull PRIME = 998'244'353;
 constexpr ull MDL1 = 825;
-constexpr ull MDL2 = 87825;
+constexpr ull MDL2 = PRIME;
 
 /* bit-wise operations */
 #define lowbit(x) ((x) & -(x))
@@ -43,7 +43,7 @@ constexpr ull MDL2 = 87825;
 #define lsp(x) (__builtin_ctzll(ll(x)))
 
 /* arithmetic operations */
-#define mod(x, y) (((x) % (y) + (y)) % (y))
+#define mod(x, y) ((((x) % (y)) + (y)) % (y))
 
 /* fast pairs */
 #define upair ull
