@@ -32,8 +32,8 @@ using pll = pair<ll, ll>;
 constexpr int INF = 0x3f3f3f3f;
 constexpr ull MDL = 1e9 + 7;
 constexpr ull PRIME = 998'244'353;
-constexpr ull MDL1 = 825;
-constexpr ull MDL2 = PRIME;
+constexpr ll MDL1 = 825;
+constexpr ll MDL2 = PRIME;
 
 /* bit-wise operations */
 #define lowbit(x) ((x) & -(x))
