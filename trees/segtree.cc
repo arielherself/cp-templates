@@ -1,6 +1,6 @@
 template<typename T> class segtree {
 private:
-    using size_type = __uint64_t;
+    using size_type = uint64_t;
     T _max;
     vector<T> d, b;
 
