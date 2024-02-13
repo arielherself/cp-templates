@@ -1,6 +1,6 @@
 template<typename T> class segtreed {
 private:
-    using size_type = __uint64_t;
+    using size_type = uint64_t;
     size_type cnt, root;
     T _max;
     vector<T> d, b;
