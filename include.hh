@@ -35,6 +35,10 @@ constexpr ull PRIME = 998'244'353;
 constexpr ll MDL1 = 825;
 constexpr ll MDL2 = PRIME;
 
+/* random */
+
+mt19937 rd(chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count());
+
 /* bit-wise operations */
 #define lowbit(x) ((x) & -(x))
 #define popcount(x) (__builtin_popcountll(ll(x)))
