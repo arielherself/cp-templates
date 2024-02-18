@@ -1,12 +1,10 @@
 static vector<ll> power1, power2;
+static const ll b = rd();
+static const ll INV1 = inverse(b, MDL1);
+static const ll INV2 = inverse(b, MDL2);
 template <typename _Tp, typename _Sequence = deque<_Tp>>
 struct hash_deque {
     using hash_type = pll;
-    static constexpr ll b = 31;
-    static constexpr ll MDL1 = 8784491;
-    static constexpr ll MDL2 = 998244353;
-    static constexpr ll INV1 = 7934379;
-    static constexpr ll INV2 = 128805723;
     ll hash1, hash2;
     _Sequence seq;
     size_t size() {
