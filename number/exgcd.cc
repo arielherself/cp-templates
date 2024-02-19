@@ -50,6 +50,10 @@ namespace Exgcd {
 
     // find the minimal non-negative integral solution of `ax = b (mod n)`
     optional<ll> congruential(ll a, ll b, ll n) {
+        if (a == 0) {
+            if (b != 0) return nullopt;
+            return 0;
+        }
         if (a < 0 && a != LLONG_MIN && b != LLONG_MIN) a = -a, b = -b;
         auto sol = diophantine(a, n, b);
         if (sol == nullopt) {
