@@ -16,7 +16,7 @@ template<typename _Tp, typename _Op = function<_Tp(const _Tp&, const _Tp&)>> str
         }
     }
     _Tp query(size_t __start, size_t __end) {
-        int s = log2(__end - __start + 1);
+        int s = lg2(__end - __start + 1);
         return op(st[__start][s], st[__end - (1 << s) + 1][s]);
     }
 };
