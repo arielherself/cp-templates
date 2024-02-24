@@ -32,7 +32,7 @@ using pll = pair<ll, ll>;
 constexpr int INF = 0x3f3f3f3f;
 constexpr ull MDL = 1e9 + 7;
 constexpr ull PRIME = 998'244'353;
-constexpr ll MDL1 = 8784491;
+constexpr ll MDL1 = 825;
 constexpr ll MDL2 = PRIME;
 
 /* random */
@@ -138,6 +138,8 @@ template<typename T> ostream& operator<<(ostream& out, vector<T> vec) {
 #define popfront(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.front();q.pop_front();)
 
 /* math */
+constexpr inline int lg2(ll x) { return x == 0 ? -1 : sizeof(ll) * 8 - 1 - __builtin_clzll(x); }
+
 void __exgcd(ll a, ll b, ll& x, ll& y) {
   if (b == 0) {
     x = 1, y = 0;
@@ -203,3 +205,4 @@ int period(string s) {  // find the length of shortest recurring period
     return n;
 }
 /////////////////////////////////////////////////////////
+
