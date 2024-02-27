@@ -206,4 +206,3 @@ int period(string s) {  // find the length of shortest recurring period
     return n;
 }
 /////////////////////////////////////////////////////////
-
