@@ -1,5 +1,3 @@
-#include "../include.hh"
-
 template<typename T>
 struct BIT {
     int n;
