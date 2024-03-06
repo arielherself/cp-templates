@@ -1,3 +1,4 @@
+
 namespace Exgcd {
     struct exgcd_solution_t {
         ll x, y, gcd;
@@ -32,6 +33,22 @@ namespace Exgcd {
         } else {
             return mod(raw.value().x, b);
         }
+    }
+
+    // solve { x = a_i (mod n_i) } if n_i's are coprime
+    optional<ll> crt(const vector<pll>& equations) {
+        ll prod = 1;
+        for (auto&& [a, n] : equations) {
+            prod *= n;
+        }
+        ll res = 0;
+        for (auto&& [a, n] : equations) {
+            ll m = prod / n;
+            auto m_rev = inverse(m, n);
+            if (m_rev == nullopt) return nullopt;
+            res = mod(res + a * mod(m * m_rev.value(), prod), prod);
+        }
+        return res;
     }
 
     // find minimal non-negative integral solutions of `ax + by = c`
