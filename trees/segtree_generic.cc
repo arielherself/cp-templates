@@ -7,11 +7,16 @@ private:
     vector<info_type> d;
     vector<tag_type> b;
 
+    void pull(size_type p) {
+        d[p] = d[p * 2] + d[p * 2 + 1];
+    }
+
     void push(size_type p) {
         d[p * 2].apply(b[p]), d[p * 2 + 1].apply(b[p]);
         b[p * 2].apply(b[p]), b[p * 2 + 1].apply(b[p]);
         b[p] = tag_type();
     }
+
     void set(size_type s, size_type t, size_type p, size_type x, const info_type& c) {
         if (s == t) {
             d[p] = c;
@@ -34,7 +39,7 @@ private:
         push(p);
         if (l <= m) range_apply(s, m, p * 2, l, r, c);
         if (r > m)  range_apply(m + 1, t, p * 2 + 1, l, r, c);
-        d[p] = d[p * 2] + d[p * 2 + 1];
+        pull(p);
     }
 
     info_type range_query(size_type s, size_type t, size_type p, size_type l, size_type r) {
@@ -57,7 +62,7 @@ private:
         int m = s + (t - s >> 1);
         build(a, s, m, p * 2);
         build(a, m + 1, t, p * 2 + 1);
-        d[p] = d[p * 2] + d[p * 2 + 1];
+        pull(p);
     }
 public:
     segtree(size_type __max) : d(4 * __max), b(4 * __max), _max(__max - 1) {}
