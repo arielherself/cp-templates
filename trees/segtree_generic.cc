@@ -98,7 +98,7 @@ public:
         return res;
     }
 
-    const vector<info_type> get_d() {
+    const vector<info_type>& get_d() {
         return d;
     }
 };
