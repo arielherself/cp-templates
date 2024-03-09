@@ -24,8 +24,8 @@ private:
         }
         size_type m = s + (t - s >> 1);
         if (s != t) push(p);
-        if (x <= m) range_set(s, m, p * 2, x, c);
-        else  range_set(m + 1, t, p * 2 + 1, x, c);
+        if (x <= m) set(s, m, p * 2, x, c);
+        else set(m + 1, t, p * 2 + 1, x, c);
         d[p] = d[p * 2] + d[p * 2 + 1];
     }
     
