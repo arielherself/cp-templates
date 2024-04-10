@@ -7,10 +7,10 @@ template <ll mdl> struct MLL {
     friend MLL operator/(const MLL& lhs, const MLL& rhs) { return mod(lhs.val * mod(inverse(rhs.val, mdl), mdl), mdl); }
     friend MLL operator%(const MLL& lhs, const MLL& rhs) { return mod(lhs.val - (lhs / rhs).val, mdl); }
     friend MLL operator==(const MLL& lhs, const MLL& rhs) { return lhs.val == rhs.val; }
+    friend MLL operator!=(const MLL& lhs, const MLL& rhs) { return lhs.val != rhs.val; }
     void operator+=(const MLL& rhs) { val = (*this + rhs).val; }
     void operator-=(const MLL& rhs) { val = (*this - rhs).val; }
     void operator*=(const MLL& rhs) { val = (*this * rhs).val; }
     void operator/=(const MLL& rhs) { val = (*this / rhs).val; }
     void operator%=(const MLL& rhs) { val = (*this % rhs).val; }
 };
-
