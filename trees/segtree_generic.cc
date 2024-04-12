@@ -1,3 +1,4 @@
+
 template<typename Addable_Info_t, typename Tag_t, typename Sequence = std::vector<Addable_Info_t>> class segtree {
 private:
     using size_type = uint64_t;
@@ -11,8 +12,8 @@ private:
         d[p] = d[p * 2] + d[p * 2 + 1];
     }
 
-    void push(size_type p) {
-        d[p * 2].apply(b[p]), d[p * 2 + 1].apply(b[p]);
+    void push(size_type p, size_type left_len, size_type right_len) {
+        d[p * 2].apply(b[p], left_len), d[p * 2 + 1].apply(b[p], right_len);
         b[p * 2].apply(b[p]), b[p * 2 + 1].apply(b[p]);
         b[p] = tag_type();
     }
@@ -23,7 +24,7 @@ private:
             return;
         }
         size_type m = s + (t - s >> 1);
-        if (s != t) push(p);
+        if (s != t) push(p, m - s + 1, t - m);
         if (x <= m) set(s, m, p * 2, x, c);
         else set(m + 1, t, p * 2 + 1, x, c);
         d[p] = d[p * 2] + d[p * 2 + 1];
@@ -31,12 +32,12 @@ private:
     
     void range_apply(size_type s, size_type t, size_type p, size_type l, size_type r, const tag_type& c) {
         if (l <= s && t <= r) {
-            d[p].apply(c);
+            d[p].apply(c, t - s + 1);
             b[p].apply(c);
             return;
         }
         size_type m = s + (t - s >> 1);
-        push(p);
+        push(p, m - s + 1, t - m);
         if (l <= m) range_apply(s, m, p * 2, l, r, c);
         if (r > m)  range_apply(m + 1, t, p * 2 + 1, l, r, c);
         pull(p);
@@ -48,7 +49,7 @@ private:
         }
         size_type m = s + (t - s >> 1);
         info_type res = {};
-        push(p);
+        push(p, m - s + 1, t - m);
         if (l <= m) res = res + range_query(s, m, p * 2, l, r);
         if (r > m)  res = res + range_query(m + 1, t, p * 2 + 1, l, r);
         return res;
@@ -103,22 +104,23 @@ public:
     }
 };
 
-struct Set_Tag {
-    int val = -1;
-    void apply(const Set_Tag& rhs) {
+struct Tag {
+    ll val = -1;
+    void apply(const Tag& rhs) {
         if (rhs.val != -1)
         val = rhs.val;
     }
 };
 
-struct Set_Info {
-    int val = 0;
-    void apply(const Set_Tag& rhs) {
+struct Info {
+    ll val = 0;
+    void apply(const Tag& rhs, size_t len) {
         if (rhs.val != -1)
-        val = rhs.val;
+        val = rhs.val * len;
     }
 };
 
-Set_Info operator+(const Set_Info &a, const Set_Info &b) {
+Info operator+(const Info &a, const Info &b) {
     return {a.val + b.val};
 }
+
