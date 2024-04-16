@@ -1,4 +1,5 @@
 namespace tarjan {
+    // Returns the mapping between vertices and their affiliated sccs.
     vector<int> scc(const vector<vector<int>>& ch) {
         int n = ch.size();
         int cnt = 0, scn = 0;
@@ -25,6 +26,7 @@ namespace tarjan {
         return br;
     }
 
+    // This method can eliminate redundant edges or self-loops
     vector<vector<int>> build_scc(const vector<vector<int>>& ch) {
         int n = ch.size();
         auto br = scc(ch);
@@ -32,7 +34,7 @@ namespace tarjan {
         vector<unordered_set<int, safe_hash>> rb(cnt + 1);
         for (int i = 0; i < n; ++i) {
             for (auto&& u : ch[i]) {
-                rb[br[i]].emplace(br[u]);
+                if (br[i] != br[u]) rb[br[i]].emplace(br[u]);
             }
         }
         vector<vector<int>> res(cnt + 1);
@@ -42,6 +44,8 @@ namespace tarjan {
         return res;
     }
     
+    // This method can eliminate redundant edges or self-loops
+    // return form: (scc size, children of scc)
     vector<pair<size_t, vector<int>>> build_scc_with_size(const vector<vector<int>>& ch) {
         int n = ch.size();
         auto br = scc(ch);
@@ -49,7 +53,7 @@ namespace tarjan {
         vector<unordered_set<int, safe_hash>> rb(cnt + 1);
         for (int i = 0; i < n; ++i) {
             for (auto&& u : ch[i]) {
-                rb[br[i]].emplace(br[u]);
+                if (br[i] != br[u]) rb[br[i]].emplace(br[u]);
             }
         }
         vector<pair<size_t, vector<int>>> res(cnt + 1);
