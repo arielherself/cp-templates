@@ -41,4 +41,23 @@ namespace tarjan {
         }
         return res;
     }
+    vector<pair<size_t, vector<int>>> build_scc_with_size(const vector<vector<int>>& ch) {
+        int n = ch.size();
+        auto br = scc(ch);
+        int cnt = *max_element(br.begin(), br.end());
+        vector<unordered_set<int, safe_hash>> rb(cnt + 1);
+        for (int i = 0; i < n; ++i) {
+            for (auto&& u : ch[i]) {
+                rb[br[i]].emplace(br[u]);
+            }
+        }
+        vector<pair<size_t, vector<int>>> res(cnt + 1);
+        for (int i = 1; i <= cnt; ++i) {
+            res[i].second = vector<int>(rb[i].begin(), rb[i].end());
+        }
+        for (int i = 1; i <= n; ++i) {
+            res[br[i]].first += 1;
+        }
+        return res;
+    }
 }
