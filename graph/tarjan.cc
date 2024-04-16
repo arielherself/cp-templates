@@ -41,6 +41,7 @@ namespace tarjan {
         }
         return res;
     }
+    
     vector<pair<size_t, vector<int>>> build_scc_with_size(const vector<vector<int>>& ch) {
         int n = ch.size();
         auto br = scc(ch);
