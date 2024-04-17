@@ -1,4 +1,6 @@
+#ifdef ONLINE_JUDGE
 #pragma GCC optimize("Ofast")
+#endif
 /////////////////////////////////////////////////////////
 /**
  * Useful Macros
@@ -18,8 +20,15 @@ constexpr void __() {}
 #define __as_typeof(container) decltype(container)::value_type
 
 /* type aliases */
+#if LONG_LONG_MAX != INT64_MAX
 using ll = int64_t;
 using ull = uint64_t;
+#else
+using ll = long long;
+using ull = unsigned long long;
+#endif
+using int128 = __int128_t;
+using uint128 = __uint128_t;
 using pii = pair<int, int>;
 using pil = pair<int, ll>;
 using pli = pair<ll, int>;
@@ -32,6 +41,10 @@ constexpr ll MDL = 1e9 + 7;
 constexpr ll PRIME = 998'244'353;
 constexpr ll MDL1 = 8784491;
 constexpr ll MDL2 = PRIME;
+constexpr int128 INT128_MAX = numeric_limits<int128>::max();
+constexpr uint128 UINT128_MAX = numeric_limits<uint128>::max();
+constexpr int128 INT128_MIN = numeric_limits<int128>::min();
+constexpr uint128 UINT128_MIN = numeric_limits<uint128>::min();
 
 /* random */
 
@@ -158,6 +171,29 @@ template<typename T> ostream& operator<<(ostream& out, const vector<T>& vec) {
     for (auto&& i : vec) out << i << ' ';
     return out;
 }
+std::ostream& operator<<(std::ostream& dest, const int128& value) {
+    // https://stackoverflow.com/a/25115163/23881100
+    std::ostream::sentry s( dest );
+    if ( s ) {
+        uint128 tmp = value < 0 ? -value : value;
+        char buffer[ 128 ];
+        char* d = std::end( buffer );
+        do {
+            -- d;
+            *d = "0123456789"[ tmp % 10 ];
+            tmp /= 10;
+        } while ( tmp != 0 );
+        if ( value < 0 ) {
+            -- d;
+            *d = '-';
+        }
+        int len = std::end( buffer ) - d;
+        if ( dest.rdbuf()->sputn( d, len ) != len ) {
+            dest.setstate( std::ios_base::badbit );
+        }
+    }
+    return dest;
+}
 
 /* pops */
 #define poptop(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.top(); q.pop();)
@@ -180,6 +216,22 @@ ll inverse(ll a, ll b) {
     ll x, y;
     __exgcd(a, b, x, y);
     return mod(x, b);
+}
+
+vector<tuple<int, int, ll>> decompose(ll x) {
+    vector<tuple<int, int, ll>> res;
+    for (int i = 2; i * i <= x; i++) {
+        if (x % i == 0) {
+            int cnt = 0;
+            ll pw = 1;
+            while (x % i == 0) ++cnt, x /= i, pw *= i;
+            res.emplace_back(i, cnt, pw);
+        }
+    }
+    if (x != 1) {
+        res.emplace_back(x, 1, x);
+    }
+    return res;
 }
 
 /* string algorithms */
