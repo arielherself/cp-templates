@@ -13,6 +13,7 @@ public:
     }
     
     void merge(size_t i, size_t j) {
+        if (connected(i, j)) return;
         sz[query(j)] += sz[query(i)];
         c[query(i)] = query(j);
     }
