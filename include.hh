@@ -120,6 +120,23 @@ struct pair_hash {
     }
 };
 
+uniform_int_distribution<mt19937::result_type> dist(PRIME);
+const size_t __array_hash_b = 31, __array_hash_mdl1 = dist(rd), __array_hash_mdl2 = dist(rd);
+struct array_hash {
+    template <typename Sequence>
+    size_t operator()(const Sequence& arr) const {
+        size_t pw1 = 1, pw2 = 1;
+        size_t res1 = 0, res2 = 0;
+        for (auto&& x : arr) {
+            res1 = (res1 + x * pw1) % __array_hash_mdl1;
+            res2 = (res2 + x * pw2) % __array_hash_mdl2;
+            pw1 = (pw1 * __array_hash_b) % __array_hash_mdl1;
+            pw2 = (pw2 * __array_hash_b) % __array_hash_mdl2;
+        }
+        return res1 + res2;
+    }
+};
+
 /* build data structures */
 #define unordered_counter(from, to) __AS_PROCEDURE(unordered_map<__as_typeof(from), size_t, safe_hash> to; for (auto&& x : from) ++to[x];)
 #define counter(from, to, cmp) __AS_PROCEDURE(map<__as_typeof(from), size_t, cmp> to; for (auto&& x : from) ++to[x];)
