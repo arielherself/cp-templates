@@ -1,6 +1,7 @@
 template <ll mdl> struct MLL {
     ll val;
     MLL(ll v = 0) : val(mod(v, mdl)) {}
+    MLL(const MLL<mdl>& other) : val(other.val) {}
     friend MLL operator+(const MLL& lhs, const MLL& rhs) { return mod(lhs.val + rhs.val, mdl); }
     friend MLL operator-(const MLL& lhs, const MLL& rhs) { return mod(lhs.val - rhs.val, mdl); }
     friend MLL operator*(const MLL& lhs, const MLL& rhs) { return mod(lhs.val * rhs.val, mdl); }
