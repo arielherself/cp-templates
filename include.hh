@@ -31,6 +31,8 @@ using pii = pair<int, int>;
 using pil = pair<int, ll>;
 using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
+template <typename T> using max_heap = priority_queue<T>;
+template <typename T> using min_heap = priority_queue<T, vector<T>, greater<>>;
 
 /* constants */
 constexpr int INF = 0x3f3f3f3f;
