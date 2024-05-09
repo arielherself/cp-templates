@@ -24,6 +24,7 @@ using ull = uint64_t;
 #else
 using ll = long long;
 using ull = unsigned long long;
+using ld = long double;
 #endif
 using int128 = __int128_t;
 using uint128 = __uint128_t;
@@ -236,6 +237,7 @@ ll inverse(ll a, ll b) {
 }
 
 vector<tuple<int, int, ll>> decompose(ll x) {
+    // return (factor, count, factor ** count)
     vector<tuple<int, int, ll>> res;
     for (int i = 2; i * i <= x; i++) {
         if (x % i == 0) {
@@ -249,6 +251,22 @@ vector<tuple<int, int, ll>> decompose(ll x) {
         res.emplace_back(x, 1, x);
     }
     return res;
+}
+
+vector<pii> decompose_prime(int N) {
+    // return (factor, count)
+    vector<pii> result;
+    for (int i = 2; i * i <= N; i++) {
+        if (N % i == 0) {
+            int cnt = 0;
+            while (N % i == 0) N /= i, ++cnt;
+            result.emplace_back(i, cnt);
+        }
+    }
+    if (N != 1) {
+        result.emplace_back(N, 1);
+    }
+    return result;
 }
 
 /* string algorithms */
