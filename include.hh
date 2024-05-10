@@ -382,4 +382,12 @@ template <ll mdl>
 istream& operator>>(istream& in, MLL<mdl>& num) {
     return in >> num.val;
 }
+
+// miscancellous
+template <typename Func, typename RandomIt> void sort_by_key(RandomIt first, RandomIt last, Func extractor) {
+    std::sort(first, last, [&] (auto&& a, auto&& b) { return std::less<>()(extractor(a), extractor(b)); });
+}
+template <typename Func, typename RandomIt, typename Compare> void sort_by_key(RandomIt first, RandomIt last, Func extractor, Compare comp) {
+    std::sort(first, last, [&] (auto&& a, auto&& b) { return comp(extractor(a), extractor(b)); });
+}
 /////////////////////////////////////////////////////////
