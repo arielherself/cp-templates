@@ -396,42 +396,38 @@ template <typename Func, typename RandomIt> void sort_by_key(RandomIt first, Ran
 template <typename Func, typename RandomIt, typename Compare> void sort_by_key(RandomIt first, RandomIt last, Func extractor, Compare comp) {
     std::sort(first, last, [&] (auto&& a, auto&& b) { return comp(extractor(a), extractor(b)); });
 }
-/////////////////////////////////////////////////////////
-
-#define SINGLE_TEST_CASE
-// #define DUMP_TEST_CASE 7219
-
-void dump() {}
-
-void dump_ignore() {}
-
-void prep() {}
-
-void solve() {
-}
-
-int main() {
-#if __cplusplus < 201703L || defined(_MSC_VER) && !defined(__clang__)
-    assert(false && "incompatible compiler variant detected.");
-#endif
-    untie, cout.tie(NULL);
-    prep();
-#ifdef SINGLE_TEST_CASE
-    solve();
-#else
-    read(int, t);
-    for (int i = 0; i < t; ++i) {
-#ifdef DUMP_TEST_CASE
-        if (t < (DUMP_TEST_CASE)) {
-            solve();
-        } else if (i + 1 == (DUMP_TEST_CASE)) {
-            dump();
-        } else {
-            dump_ignore();
-        }
-#else
-        solve();
-#endif
+template <typename T, typename U, typename Iterator_T, typename Iterator_U>
+vector<pair<T, U>> zip(Iterator_T a_first, Iterator_T a_last, Iterator_U b_first, Iterator_U b_last) {
+    vector<pair<T, U>> res;
+    auto a_it = a_first;
+    auto b_it = b_first;
+    for (; a_it != a_last and b_it != b_last; ++a_it, ++b_it) {
+        res.emplace_back(*a_it, *b_it);
     }
-#endif
+    return res;
 }
+template <typename T, typename U, typename Iterator_T, typename Iterator_U>
+vector<pair<T, U>> zip_n(Iterator_T a_first, Iterator_U b_first, size_t n) {
+    vector<pair<T, U>> res;
+    auto a_it = a_first;
+    auto b_it = b_first;
+    for (; n != 0; ++a_it, ++b_it, --n) {
+        res.emplace_back(*a_it, *b_it);
+    }
+    return res;
+}
+template <typename T>
+class ArithmeticIterator {
+public:
+    using difference_type = ptrdiff_t;
+    using value_type = T;
+private:
+    value_type value;
+public:
+    ArithmeticIterator(const T& value) : value(value) {}
+    value_type operator*() const { return value; }
+    ArithmeticIterator<T>& operator++() { ++value; return *this; }
+    ArithmeticIterator<T>& operator--() { --value; return *this; }
+    bool operator==(const ArithmeticIterator<T>& rhs) const { return value == rhs.value; }
+};
+/////////////////////////////////////////////////////////
