@@ -2,11 +2,11 @@ namespace HLD {
     struct node_info {
         int father, depth, hson, size, head, dfn = -1;
     };
-
     // returns: (dfs sequence, node info)
     // node numbering starts from `1`
     // if `dfn(v) == -1`, then node `v` is never accessed.
-    pair<vector<int>, vector<node_info>> work(int n, const vector<vector<int>>& ch, int root = 0) {
+    pair<vector<int>, vector<node_info>> work(const vector<vector<int>>& ch, int root = 0) {
+        int n = ch.size() - 1;
         vector<int> seq;
         vector<node_info> res(n + 1);
         auto dfs1 = [&] (auto dfs1, int v, int pa) -> void {
