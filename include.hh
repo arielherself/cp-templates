@@ -409,10 +409,11 @@ vector<pair<T, U>> zip(Iterator_T a_first, Iterator_T a_last, Iterator_U b_first
 template <typename T, typename U, typename Iterator_T, typename Iterator_U>
 vector<pair<T, U>> zip_n(Iterator_T a_first, Iterator_U b_first, size_t n) {
     vector<pair<T, U>> res;
-    auto a_it = a_first;
-    auto b_it = b_first;
-    for (; n != 0; ++a_it, ++b_it, --n) {
-        res.emplace_back(*a_it, *b_it);
+    if (n > 0) {
+        res.emplace_back(*a_first, *b_first);
+        for (size_t i = 1; i != n; ++i) {
+            res.emplace_back(*++a_first, *++b_first);
+        }
     }
     return res;
 }
