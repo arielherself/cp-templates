@@ -418,7 +418,7 @@ vector<pair<T, U>> zip_n(Iterator_T a_first, Iterator_U b_first, size_t n) {
     return res;
 }
 template <typename T>
-class ArithmeticIterator {
+class ArithmeticIterator : bidirectional_iterator_tag {
 public:
     using difference_type = ptrdiff_t;
     using value_type = T;
