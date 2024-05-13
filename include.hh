@@ -68,6 +68,7 @@ using tiii = tuple<int, int, int>;
 template <typename T> using max_heap = priority_queue<T>;
 template <typename T> using min_heap = priority_queue<T, vector<T>, greater<>>;
 template <typename T> using oi = ostream_iterator<T>;
+template <typename T> using ii = istream_iterator<T>;
 
 /* constants */
 constexpr int INF = 0x3f3f3f3f;
