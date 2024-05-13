@@ -206,7 +206,9 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define readvec(type, a, n) __AS_PROCEDURE(vector<type> a(n); copy_n(ii<type>(cin), (n), a.begin());)
 #define readvec1(type, a, n) __AS_PROCEDURE(vector<type> a((n) + 1); copy_n(ii<type>(cin), (n), a.begin() + 1);)
 #define putvec(a) __AS_PROCEDURE(copy(a.begin(), a.end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
+#define putvec1(a) __AS_PROCEDURE(copy(a.begin() + 1, a.end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
 #define putvec_eol(a) __AS_PROCEDURE(copy(a.begin(), a.end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
+#define putvec1_eol(a) __AS_PROCEDURE(copy(a.begin() + 1, a.end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
 #define debug(x) __AS_PROCEDURE(cerr << #x" = " << (x) << endl;)
 #define debugvec(a) __AS_PROCEDURE(cerr << #a" = "; for (auto&& x : a) cerr << x << ' '; cerr << endl;)
 template<typename T, typename U> ostream& operator<<(ostream& out, const pair<T, U>& p) {
@@ -395,3 +397,41 @@ template <typename Func, typename RandomIt, typename Compare> void sort_by_key(R
     std::sort(first, last, [&] (auto&& a, auto&& b) { return comp(extractor(a), extractor(b)); });
 }
 /////////////////////////////////////////////////////////
+
+#define SINGLE_TEST_CASE
+// #define DUMP_TEST_CASE 7219
+
+void dump() {}
+
+void dump_ignore() {}
+
+void prep() {}
+
+void solve() {
+}
+
+int main() {
+#if __cplusplus < 201703L || defined(_MSC_VER) && !defined(__clang__)
+    assert(false && "incompatible compiler variant detected.");
+#endif
+    untie, cout.tie(NULL);
+    prep();
+#ifdef SINGLE_TEST_CASE
+    solve();
+#else
+    read(int, t);
+    for (int i = 0; i < t; ++i) {
+#ifdef DUMP_TEST_CASE
+        if (t < (DUMP_TEST_CASE)) {
+            solve();
+        } else if (i + 1 == (DUMP_TEST_CASE)) {
+            dump();
+        } else {
+            dump_ignore();
+        }
+#else
+        solve();
+#endif
+    }
+#endif
+}
