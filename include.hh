@@ -15,7 +15,7 @@ using namespace std;
 #define __DECOMPOSE_N(a, ...) auto [__VA_ARGS__] = a;
 constexpr void __() {}
 #define __AS_PROCEDURE(...) __(); __VA_ARGS__; __()
-#define __as_typeof(container) decltype(container)::value_type
+#define __as_typeof(container) remove_reference<decltype(container)>::type
 
 /* type aliases */
 #if LONG_LONG_MAX != INT64_MAX
@@ -203,8 +203,10 @@ template <typename T, typename Iterator> pair<size_t, unordered_map<T, size_t, s
 template<typename T> void __read(T& x) { cin >> x; }
 template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __read(args...); }
 #define read(type, ...) __AS_PROCEDURE(type __VA_ARGS__; __read(__VA_ARGS__);)
-#define readvec(type, a, n) __AS_PROCEDURE(vector<type> a(n); for (int i = 0; i < (n); ++i) cin >> a[i];)
-#define putvec(a) __AS_PROCEDURE(for (auto&& x : a) cout << x << ' '; cout << endl;)
+#define readvec(type, a, n) __AS_PROCEDURE(vector<type> a(n); copy_n(ii<type>(cin), (n), a.begin());)
+#define readvec1(type, a, n) __AS_PROCEDURE(vector<type> a((n) + 1); copy_n(ii<type>(cin), (n), a.begin() + 1);)
+#define putvec(a) __AS_PROCEDURE(copy(a.begin(), a.end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
+#define putvec_eol(a) __AS_PROCEDURE(copy(a.begin(), a.end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
 #define debug(x) __AS_PROCEDURE(cerr << #x" = " << (x) << endl;)
 #define debugvec(a) __AS_PROCEDURE(cerr << #a" = "; for (auto&& x : a) cerr << x << ' '; cerr << endl;)
 template<typename T, typename U> ostream& operator<<(ostream& out, const pair<T, U>& p) {
