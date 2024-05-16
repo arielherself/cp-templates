@@ -105,4 +105,39 @@ namespace tarjan {
         }
         return solve_twosat(n, trans_conds);
     }
+
+    // Returns if each vertex is a cut vertex
+    // All indices start from 1
+    vector<int> cut_v(const vector<vector<int>>& ch) {
+        int n = ch.size() - 1;
+        vector<bool> vis(n + 1);
+        vector<int> low(n + 1), dfn(n + 1), flag(n + 1);
+        int cnt = 0;
+        auto dfs = [&] (auto dfs, int v, int pa) -> void {
+            vis[v] = 1;
+            low[v] = dfn[v] = ++cnt;
+            int child = 0;
+            for (auto&& u : ch[v]) {
+                if (not vis[u]) {
+                    ++child;
+                    dfs(dfs, u, v);
+                    low[v] = min(low[v], low[u]);
+                    if (pa != v and low[u] >= dfn[v] and not flag[v]) {
+                        flag[v] = 1;
+                    }
+                } else if (u != pa) {
+                    low[v] = min(low[v], dfn[u]);
+                }
+            }
+            if (pa == v and child >= 2 and not flag[v]) {
+                flag[v] = 1;
+            }
+        };
+        for (int i = 1; i <= n; ++i) {
+            if (not dfn[i]) {
+                dfs(dfs, i, 0);
+            }
+        }
+        return flag;
+    }
 }
