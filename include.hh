@@ -429,7 +429,7 @@ vector<pair<T, U>> zip(Iterator_T a_first, Iterator_T a_last, Iterator_U b_first
     vector<pair<T, U>> res;
     auto a_it = a_first;
     auto b_it = b_first;
-    for (; a_it != a_last and b_it != b_last; ++a_it, ++b_it) {
+    for (; not (a_it == a_last) and not (b_it == b_last); ++a_it, ++b_it) {
         res.emplace_back(*a_it, *b_it);
     }
     return res;
@@ -459,4 +459,7 @@ public:
     ArithmeticIterator<T>& operator--() { --value; return *this; }
     bool operator==(const ArithmeticIterator<T>& rhs) const { return value == rhs.value; }
 };
+template <typename T> vector<pair<int, T>> enumerate(const vector<T>& container) {
+    return zip<int, T>(ArithmeticIterator<int>(0), ArithmeticIterator<int>(INT_MAX), container.begin(), container.end());
+}
 /////////////////////////////////////////////////////////
