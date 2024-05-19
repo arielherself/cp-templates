@@ -4,15 +4,16 @@ struct edmonds_karp {
         ll cap;
         ll flow;
         pair<int, int> rev;
+        bool mark;
     };
 
     vector<vector<edge>> edges;
 
     edmonds_karp(int n) : edges(n + 1) {}
 
-    void add_edge(int from, int to, ll cap) {
-        edges[from].push_back({to, cap, 0, make_pair(to, int(edges[to].size()))});
-        edges[to].push_back({from, 0, 0, make_pair(from, int(edges[from].size() - 1))});
+    void add_edge(int from, int to, ll cap, bool mark = false) {
+        edges[from].push_back({to, cap, 0, make_pair(to, int(edges[to].size())), mark});
+        edges[to].push_back({from, 0, 0, make_pair(from, int(edges[from].size() - 1)), mark});
     }
 
     ll run(int s, int t) {
