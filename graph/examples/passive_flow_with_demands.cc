@@ -1,16 +1,5 @@
 // ...
 
-#define SINGLE_TEST_CASE
-// #define DUMP_TEST_CASE 7219
-// #define TOT_TEST_CASE 10000
-
-void dump() {}
-
-void dump_ignore() {}
-
-void prep() {
-}
-
 struct dinic {
     // ...
 };
@@ -48,30 +37,4 @@ void solve() {
     }
     cout << "YES\n";
     copy(res.begin(), res.end(), oi<int>(cout, "\n"));
-}
-
-int main() {
-#if __cplusplus < 201703L || defined(_MSC_VER) && !defined(__clang__)
-    assert(false && "incompatible compiler variant detected.");
-#endif
-    untie, cout.tie(NULL);
-    prep();
-#ifdef SINGLE_TEST_CASE
-    solve();
-#else
-    read(int, t);
-    for (int i = 0; i < t; ++i) {
-#ifdef DUMP_TEST_CASE
-        if (t != (TOT_TEST_CASE)) {
-            solve();
-        } else if (i + 1 == (DUMP_TEST_CASE)) {
-            dump();
-        } else {
-            dump_ignore();
-        }
-#else
-        solve();
-#endif
-    }
-#endif
 }
