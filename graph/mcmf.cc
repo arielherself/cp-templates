@@ -28,7 +28,7 @@ struct mcmf {
         while (f) {
             f = 0;
             for (int i = 0; i < n; ++i) {
-                for (auto&& [to, cap, flow, cost, rev] : edges[i]) {
+                for (auto&& [to, cap, flow, cost, rev, mark] : edges[i]) {
                     if (cap > flow and dis[to] > dis[i] + cost) {
                         dis[to] = dis[i] + cost;
                         f = 1;
