@@ -15,9 +15,9 @@ struct mcmf {
 
     mcmf(int n) : edges(n + 1), dis(n + 1), vis(n + 1) {}
 
-    void add_edge(int from, int to, ll cap, ll cost, int mark = 0) {
+    void add_edge(int from, int to, ll cap, ll cost, int mark = 0, int mark_rev = 0) {
         edges[from].push_back({ to, cap, 0, cost, int(edges[to].size()), mark });
-        edges[to].push_back({ from, 0, 0, -cost, int(edges[from].size() - 1), mark });
+        edges[to].push_back({ from, 0, 0, -cost, int(edges[from].size() - 1), mark_rev });
     }
 
     bool sp(int s, int t) {
