@@ -4,6 +4,7 @@ struct dinic {
         ll cap;
         ll flow;
         int rev;
+        bool mark;
     };
 
     vector<vector<edge>> edges;
@@ -12,9 +13,9 @@ struct dinic {
 
     dinic(int n) : edges(n + 1), layer(n + 1), vis(n + 1) {}
 
-    void add_edge(int from, int to, ll cap) {
-        edges[from].push_back({ to, cap, 0, int(edges[to].size()) });
-        edges[to].push_back({ from, 0, 0, int(edges[from].size() - 1)});
+    void add_edge(int from, int to, ll cap, bool mark = false) {
+        edges[from].push_back({ to, cap, 0, int(edges[to].size()), mark });
+        edges[to].push_back({ from, 0, 0, int(edges[from].size() - 1), mark });
     }
 
     bool bfs(int s, int t) {
