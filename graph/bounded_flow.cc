@@ -29,7 +29,7 @@ struct bounded_flow {
             for (int from = 1; from <= n; ++from) {
                 for (auto&& [to, cap, flow, rev, mark] : net.edges[from]) {
                     if (mark != -1) {
-                        fl[mark] = flow;
+                        fl[mark] += flow;
                     }
                 }
             }
