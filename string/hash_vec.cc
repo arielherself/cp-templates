@@ -52,8 +52,8 @@ struct hash_vec {
     }
     hash_vec(size_t maxn) {
         clear();
-        MLL<MDL1> c1 = 1;
-        MLL<MDL2> c2 = 1;
+        MLL<MDL1> c1 = power1.size() ? power1.back() * b : 1;
+        MLL<MDL2> c2 = power2.size() ? power2.back() * b : 1;
         for (int i = power1.size(); i < maxn; ++i) {
             power1.push_back(c1);
             power2.push_back(c2);
