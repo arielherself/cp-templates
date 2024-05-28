@@ -263,6 +263,17 @@ std::ostream& operator<<(std::ostream& dest, const int128& value) {
 #define popfront(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.front();q.pop_front();)
 
 /* math */
+template <typename return_t>
+return_t qpow(ll b, ll p) {
+    if (b == 0 and p != 0) return 0;
+    if (p == 0) return 1;
+    return_t half = qpow<return_t>(b, p / 2);
+    if (p % 2 == 1) return half * half * b;
+    else return half * half;
+}
+
+#define comb(n, k) ((n) < 0 or (k) < 0 or (n) < (k) ? 0 : fact[n] / fact[k] / fact[(n) - (k)])
+
 constexpr inline int lg2(ll x) { return x == 0 ? -1 : sizeof(ll) * 8 - 1 - __builtin_clzll(x); }
 
 void __exgcd(ll a, ll b, ll& x, ll& y) {
@@ -384,12 +395,12 @@ template <ll mdl> struct MLL {
 struct MLLd {
     ll val, mdl;
     MLLd(ll mdl, ll v = 0) : mdl(mdl), val(mod(v, mdl)) {}
-    MLLd(const MLLd& other) : val(other.val) {}
-    friend MLLd operator+(const MLLd& lhs, const MLLd& rhs) { return mod(lhs.val + rhs.val, lhs.mdl); }
-    friend MLLd operator-(const MLLd& lhs, const MLLd& rhs) { return mod(lhs.val - rhs.val, lhs.mdl); }
-    friend MLLd operator*(const MLLd& lhs, const MLLd& rhs) { return mod(lhs.val * rhs.val, lhs.mdl); }
-    friend MLLd operator/(const MLLd& lhs, const MLLd& rhs) { return mod(lhs.val * mod(inverse(rhs.val, lhs.mdl), lhs.mdl), lhs.mdl); }
-    friend MLLd operator%(const MLLd& lhs, const MLLd& rhs) { return mod(lhs.val - (lhs / rhs).val, lhs.mdl); }
+    MLLd(const MLLd& other) : mdl(other.mdl), val(other.val) {}
+    friend MLLd operator+(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val + rhs.val, lhs.mdl)); }
+    friend MLLd operator-(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val - rhs.val, lhs.mdl)); }
+    friend MLLd operator*(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val * rhs.val, lhs.mdl)); }
+    friend MLLd operator/(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val * mod(inverse(rhs.val, lhs.mdl), lhs.mdl), lhs.mdl)); }
+    friend MLLd operator%(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val - (lhs / rhs).val, lhs.mdl)); }
     friend bool operator==(const MLLd& lhs, const MLLd& rhs) { return lhs.val == rhs.val; }
     friend bool operator!=(const MLLd& lhs, const MLLd& rhs) { return lhs.val != rhs.val; }
     void operator+=(const MLLd& rhs) { val = (*this + rhs).val; }
