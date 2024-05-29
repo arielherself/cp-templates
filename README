@@ -1,0 +1,4 @@
+Use at your own risk.
+
+Compile flags:
+clang++ -std=c++17 -DONLINE_JUDGE -Wl,-z,stack-size=268435456 -Wall -Ofast -g -fsanitize=address -fsanitize=undefined
