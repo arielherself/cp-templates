@@ -1,9 +1,8 @@
 #pragma GCC optimize("Ofast")
 /////////////////////////////////////////////////////////
 /**
- * Useful Macros
- *   by subcrip
- * (requires C++17)
+ * This code should require C++14.
+ * However, it's only been tested with C++17.
  */
 
 #include<bits/stdc++.h>
