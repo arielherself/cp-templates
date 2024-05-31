@@ -429,6 +429,9 @@ istream& operator>>(istream& in, MLLd& num) {
 }
 
 // miscancellous
+#define functor(func) [&](auto&&... val) \
+noexcept(noexcept(func(std::forward<decltype(val)>(val)...))) -> decltype(auto) \
+{return func(std::forward<decltype(val)>(val)...);}
 template <typename Func, typename RandomIt> void sort_by_key(RandomIt first, RandomIt last, Func extractor) {
     std::sort(first, last, [&] (auto&& a, auto&& b) { return std::less<>()(extractor(a), extractor(b)); });
 }
