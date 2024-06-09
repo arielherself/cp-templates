@@ -67,3 +67,25 @@ struct hash_vec {
         }
     }
 };
+
+struct range_hash {
+    vector<pair<MLL<MDL1>, MLL<MDL2>>> hp;
+    template <typename T>
+    range_hash(const T& vec) {
+        hp.emplace_back();
+        hash_vec<ll> hs(vec.size());
+        for (auto&& x : vec) {
+            hs.push_back(x);
+            hp.emplace_back(hs.hash());
+        }
+    }
+
+    /// query hash of subarray [l, r]. Index starts from 1.
+    pair<MLL<MDL1>, MLL<MDL2>> range_query(size_t l, size_t r) {
+        return {
+            (hp[r + 1].first - hp[l].first * power1[r + 1 - l]),
+            (hp[r + 1].second - hp[l].second * power2[r + 1 - l]),
+        };
+    }
+};
+
