@@ -80,7 +80,7 @@ struct range_hash {
         }
     }
 
-    /// query hash of subarray [l, r]. Index starts from 1.
+    /// query hash of subarray [l, r]. Index starts from 0.
     pair<MLL<MDL1>, MLL<MDL2>> range_query(size_t l, size_t r) {
         return {
             (hp[r + 1].first - hp[l].first * power1[r + 1 - l]),
