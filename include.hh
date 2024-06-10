@@ -476,4 +476,13 @@ public:
 template <typename T> vector<pair<int, T>> enumerate(const vector<T>& container) {
     return zip<int, T>(ArithmeticIterator<int>(0), ArithmeticIterator<int>(INT_MAX), container.begin(), container.end());
 }
+#define initarray(init, N) (__initarray<decay<decltype(init)>::type, (N)>(init))
+template <typename T, size_t N>
+array<T, N> __initarray(const T& init) {
+    array<T, N> res;
+    for (size_t i = 0; i < N; ++i) {
+        res[i] = init;
+    }
+    return res;
+}
 /////////////////////////////////////////////////////////
