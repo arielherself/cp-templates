@@ -429,6 +429,23 @@ istream& operator>>(istream& in, MLLd& num) {
 }
 
 // miscancellous
+template <typename T, typename U>
+bool chmax(T& lhs, const U& rhs) {
+    bool ret = lhs < rhs;
+    if (ret) {
+        lhs = rhs;
+    }
+    return ret;
+}
+template <typename T, typename U>
+bool chmin(T& lhs, const U& rhs) {
+    bool ret = lhs > rhs;
+    if (ret) {
+        lhs = rhs;
+    }
+    return ret;
+}
+
 #define functor(func) [&](auto&&... val) \
 noexcept(noexcept(func(std::forward<decltype(val)>(val)...))) -> decltype(auto) \
 {return func(std::forward<decltype(val)>(val)...);}
