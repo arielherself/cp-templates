@@ -186,6 +186,7 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define putvec1_eol(a) __AS_PROCEDURE(copy(a.begin() + 1, a.end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
 #define debug(x) __AS_PROCEDURE(cerr << #x" = " << (x) << endl;)
 #define debugvec(a) __AS_PROCEDURE(cerr << #a" = "; for (auto&& x : a) cerr << x << ' '; cerr << endl;)
+#define deb(...) debug(make_tuple(__VA_ARGS__))
 template<typename T, typename U> istream& operator>>(istream& in, pair<T, U>& p) {
     return in >> p.first >> p.second;
 }
