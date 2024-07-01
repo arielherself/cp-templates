@@ -1,6 +1,7 @@
 #pragma GCC diagnostic ignored "-Wunused-const-variable"
 #pragma GCC diagnostic ignored "-Wreorder"
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
+#pragma GCC diagnostic ignored "-Wshift-op-parentheses"
 #pragma GCC optimize("Ofast")
 /////////////////////////////////////////////////////////
 /**
