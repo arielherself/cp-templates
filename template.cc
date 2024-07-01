@@ -3,10 +3,7 @@
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
 #pragma GCC diagnostic ignored "-Wshift-op-parentheses"
 #pragma GCC optimize("Ofast")
-/////////////////////////////////////////////////////////
-/**
- * This code requires C++17.
- */
+/************* This code requires C++17. ***************/
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -481,7 +478,7 @@ array<T, N> __initarray(const T& init) {
     }
     return res;
 }
-/////////////////////////////////////////////////////////
+/*******************************************************/
 
 // #define SINGLE_TEST_CASE
 // #define DUMP_TEST_CASE 7219
