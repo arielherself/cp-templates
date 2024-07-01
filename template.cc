@@ -5,8 +5,7 @@
 #pragma GCC optimize("Ofast")
 /////////////////////////////////////////////////////////
 /**
- * This code should require C++14.
- * However, it's only been tested with C++17.
+ * This code requires C++17.
  */
 
 #include<bits/stdc++.h>
