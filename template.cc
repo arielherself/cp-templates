@@ -2,6 +2,7 @@
 #pragma GCC diagnostic ignored "-Wreorder"
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
 #pragma GCC diagnostic ignored "-Wshift-op-parentheses"
+#pragma GCC diagnostic ignored "-Wlogical-op-parentheses"
 #pragma GCC optimize("Ofast")
 /************* This code requires C++17. ***************/
 
@@ -368,39 +369,14 @@ template <ll mdl> struct MLL {
     void operator/=(const MLL& rhs) { val = (*this / rhs).val; }
     void operator%=(const MLL& rhs) { val = (*this % rhs).val; }
 };
-struct MLLd {
-    ll val, mdl;
-    MLLd(ll mdl, ll v = 0) : mdl(mdl), val(mod(v, mdl)) {}
-    MLLd(const MLLd& other) : mdl(other.mdl), val(other.val) {}
-    friend MLLd operator+(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val + rhs.val, lhs.mdl)); }
-    friend MLLd operator-(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val - rhs.val, lhs.mdl)); }
-    friend MLLd operator*(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val * rhs.val, lhs.mdl)); }
-    friend MLLd operator/(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val * mod(inverse(rhs.val, lhs.mdl), lhs.mdl), lhs.mdl)); }
-    friend MLLd operator%(const MLLd& lhs, const MLLd& rhs) { return MLLd(lhs.mdl, mod(lhs.val - (lhs / rhs).val, lhs.mdl)); }
-    friend bool operator==(const MLLd& lhs, const MLLd& rhs) { return lhs.val == rhs.val; }
-    friend bool operator!=(const MLLd& lhs, const MLLd& rhs) { return lhs.val != rhs.val; }
-    void operator+=(const MLLd& rhs) { val = (*this + rhs).val; }
-    void operator-=(const MLLd& rhs) { val = (*this - rhs).val; }
-    void operator*=(const MLLd& rhs) { val = (*this * rhs).val; }
-    void operator/=(const MLLd& rhs) { val = (*this / rhs).val; }
-    void operator%=(const MLLd& rhs) { val = (*this % rhs).val; }
-};
 
 template <ll mdl>
 ostream& operator<<(ostream& out, const MLL<mdl>& num) {
     return out << num.val;
 }
 
-ostream& operator<<(ostream& out, const MLLd& num) {
-    return out << num.val;
-}
-
 template <ll mdl>
 istream& operator>>(istream& in, MLL<mdl>& num) {
-    return in >> num.val;
-}
-
-istream& operator>>(istream& in, MLLd& num) {
     return in >> num.val;
 }
 
