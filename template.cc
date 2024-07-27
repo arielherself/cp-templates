@@ -59,7 +59,7 @@ constexpr uint128 UINT128_MIN = numeric_limits<uint128>::min();
 
 /* random */
 
-mt19937 rd(chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count());
+mt19937_64 rd(chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count());
 
 /* bit-wise operations */
 #define lowbit(x) ((x) & -(x))
