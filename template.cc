@@ -444,13 +444,17 @@ template <typename T> vector<pair<int, T>> enumerate(const vector<T>& container)
     return zip<int, T>(ArithmeticIterator<int>(0), ArithmeticIterator<int>(INT_MAX), container.begin(), container.end());
 }
 #define initarray(init, N) (__initarray<decay<decltype(init)>::type, (N)>(init))
-template <typename T, size_t N>
-array<T, N> __initarray(const T& init) {
-    array<T, N> res;
-    for (size_t i = 0; i < N; ++i) {
-        res[i] = init;
+namespace detail {
+    template <typename T, std::size_t...Is>
+    constexpr std::array<T, sizeof...(Is)>
+    make_array(const T& value, std::index_sequence<Is...>) {
+        return {{(static_cast<void>(Is), value)...}};
     }
-    return res;
+}
+
+template <typename T, std::size_t N>
+constexpr std::array<T, N> __initarray(const T& value) {
+    return detail::make_array(value, std::make_index_sequence<N>());
 }
 /*******************************************************/
 
