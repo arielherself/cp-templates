@@ -44,5 +44,6 @@ vector<int> multiply(const vector<int>& a, const vector<int>& b) {
     fft(A, true);
     vector<int> res(n);
     transform(A.begin(), A.end(), res.begin(), expr(int(round(x.real())), auto&& x));
+    res.resize(a.size() + b.size() - 1);
     return res;
 }
