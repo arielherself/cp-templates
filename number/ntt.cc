@@ -57,5 +57,6 @@ vector<MLL<M>> multiply(const vector<MLL<M>>& a, const vector<MLL<M>>& b) {
         A[i] *= B[i];
     }
     ntt<M>(A, true);
+    A.resize(a.size() + b.size() - 1);
     return A;
 }
