@@ -24,8 +24,8 @@ struct virtual_tree {
         };
         dfs(dfs, root, 0);
     }
-    // returned vertex number starts from 0
-    vector<vector<pil>> generate(vector<int> pivots) {
+    // vertex number starts from 0
+    pair<vector<vector<pil>>, vector<int>> generate(vector<int> pivots) {
         int m = pivots.size();
         if (m == 0) return {};
         sort_by_key(pivots.begin(), pivots.end(), expr(dfn[v], int v));
@@ -40,14 +40,16 @@ struct virtual_tree {
         sort_by_key(a.begin(), a.end(), expr(dfn[v], int v));
         m = unique(a.begin(), a.end()) - a.begin();
         unordered_map<int, int, safe_hash> mp;
+        vector<int> rev(m);
         for (int i = 0;  i < m; ++i) {
             mp[a[i]] = i;
+            rev[i] = a[i];
         }
         vector<vector<pil>> ret(m);
         for (int i = 0; i < m - 1; ++i) {
             int l = lca.query(a[i], a[i + 1]);
             edgew(ret, mp[l], i + 1, ps[a[i + 1]] - ps[l]);
         }
-        return ret;
+        return { ret, rev };
     }
 };
