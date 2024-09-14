@@ -68,9 +68,10 @@ struct HLD {
                 swap(u, v);
             }
             tr.range_apply(info[info[u].head].dfn, info[u].dfn, t);
+            u = info[info[u].head].father;
         }
         if (info[u].depth < info[v].depth) swap(u, v);
-        tr.range_apply(info[v].dfn, info[u].dfn);
+        tr.range_apply(info[v].dfn, info[u].dfn, t);
     }
 
     Info path_query(int u, int v) {
@@ -80,6 +81,7 @@ struct HLD {
                 swap(u, v);
             }
             res = res + tr.range_query(info[info[u].head].dfn, info[u].dfn);
+            u = info[info[u].head].father;
         }
         if (info[u].depth < info[v].depth) swap(u, v);
         res = res + tr.range_query(info[v].dfn, info[u].dfn);
