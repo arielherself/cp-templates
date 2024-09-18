@@ -1,11 +1,11 @@
 struct bounded_mcmf {
     int n, m, S, T;
     mcmf net;
-    ll sum;
+    ll sum, pre;
     vector<ll> fl;
     vector<ll> init;
     vector<ll> costs;
-    bounded_mcmf(int n, int m) : sum(0), n(n), m(m), S(0), T(n + 1), net(n + 1), fl(m), init(n + 1), costs(m) {}
+    bounded_mcmf(int n, int m) : sum(0), pre(0), n(n), m(m), S(0), T(n + 1), net(n + 1), fl(m), init(n + 1), costs(m) {}
     // handle negative loop case
     void add_edge(int from, int to, ll low, ll high, ll cost, int edge_id = -1) {
         if (cost < 0) {
@@ -26,6 +26,7 @@ struct bounded_mcmf {
     void __add_edge(int from, int to, ll low, ll high, ll cost, int edge_id = -1) {
         net.add_edge(from, to, high - low, cost, edge_id, -1);
         init[to] += low, init[from] -= low;
+        pre += low * cost;
     }
     void prep(int s, int t) {
         for (int i = 1; i <= n; ++i) {
@@ -56,6 +57,7 @@ struct bounded_mcmf {
                     }
                 }
             }
+            res_cost += pre;
             return {{res_flow, res_cost, fl}};
         }
     }
@@ -63,6 +65,7 @@ struct bounded_mcmf {
     optional<tuple<ll, ll, vector<ll>>> run_mcf(int s, int t) {
         prep(s, t);
         auto [res_flow, res_cost] = net.run(S, T);
+        res_cost += pre;
         if (sum != res_flow) {
             return nullopt;
         } else {
