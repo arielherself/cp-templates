@@ -231,9 +231,24 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define deb(...) debug(make_tuple(__VA_ARGS__))
 
 /* pops */
-#define poptop(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.top(); q.pop();)
-#define popback(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.back(); q.pop_back();)
-#define popfront(q, ...) __AS_PROCEDURE(auto [__VA_ARGS__] = q.front();q.pop_front();)
+template <typename Container>
+inline auto poptop(Container& q) {
+    auto ret = q.top();
+    q.pop();
+    return ret;
+}
+template <typename Container>
+inline auto popback(Container& q) {
+    auto ret = q.back();
+    q.pop_back();
+    return ret;
+}
+template <typename Container>
+inline auto popfront(Container& q) {
+    auto ret = q.front();
+    q.pop_front();
+    return ret;
+}
 
 /* math */
 template <typename return_t>
