@@ -265,6 +265,9 @@ return_t qpow(ll b, ll p) {
 
 constexpr inline int lg2(ll x) { return x == 0 ? -1 : sizeof(ll) * 8 - 1 - __builtin_clzll(x); }
 
+template <typename T>
+T mygcd(T a, T b) { return b == 0 ? a : mygcd(b, a % b); }
+
 void __exgcd(ll a, ll b, ll& x, ll& y) {
   if (b == 0) {
     x = 1, y = 0;
@@ -315,15 +318,15 @@ vector<pii> decompose_prime(int N) {
 
 /* string algorithms */
 vector<int> calc_next(string t) {  // pi function of t
-  int n = (int)t.length();
-  vector<int> pi(n);
-  for (int i = 1; i < n; i++) {
-    int j = pi[i - 1];
-    while (j > 0 && t[i] != t[j]) j = pi[j - 1];
-    if (t[i] == t[j]) j++;
-    pi[i] = j;
-  }
-  return pi;
+    int n = (int)t.length();
+    vector<int> pi(n);
+    for (int i = 1; i < n; i++) {
+        int j = pi[i - 1];
+        while (j > 0 && t[i] != t[j]) j = pi[j - 1];
+        if (t[i] == t[j]) j++;
+        pi[i] = j;
+    }
+    return pi;
 }
 vector<int> calc_z(string t) {  // z function of t
     int m = t.length();
@@ -343,14 +346,14 @@ vector<int> calc_z(string t) {  // z function of t
     return z;
 }
 vector<int> kmp(string s, string t) {  // find all t in s
-  string cur = t + '#' + s;
-  int sz1 = s.size(), sz2 = t.size();
-  vector<int> v;
-  vector<int> lps = calc_next(cur);
-  for (int i = sz2 + 1; i <= sz1 + sz2; i++) {
-    if (lps[i] == sz2) v.push_back(i - 2 * sz2);
-  }
-  return v;
+    string cur = t + '#' + s;
+    int sz1 = s.size(), sz2 = t.size();
+    vector<int> v;
+    vector<int> lps = calc_next(cur);
+    for (int i = sz2 + 1; i <= sz1 + sz2; i++) {
+        if (lps[i] == sz2) v.push_back(i - 2 * sz2);
+    }
+    return v;
 }
 int period(string s) {  // find the length of shortest recurring period
     int n = s.length();
@@ -472,43 +475,3 @@ constexpr std::array<T, N> __initarray(const T& value) {
     return detail::make_array(value, std::make_index_sequence<N>());
 }
 /*******************************************************/
-
-// #define SINGLE_TEST_CASE
-// #define DUMP_TEST_CASE 7219
-// #define TOT_TEST_CASE 10000
-
-void dump() {}
-
-void dump_ignore() {}
-
-void prep() {
-}
-
-void solve() {
-}
-
-int main() {
-#if __cplusplus < 201402L or defined(_MSC_VER) and not defined(__clang__)
-    assert(false && "incompatible compiler variant detected.");
-#endif
-    untie;
-    prep();
-#ifdef SINGLE_TEST_CASE
-    solve();
-#else
-    read(int, t);
-    for (int i = 0; i < t; ++i) {
-#ifdef DUMP_TEST_CASE
-        if (t != (TOT_TEST_CASE)) {
-            solve();
-        } else if (i + 1 == (DUMP_TEST_CASE)) {
-            dump();
-        } else {
-            dump_ignore();
-        }
-#else
-        solve();
-#endif
-    }
-#endif
-}
