@@ -475,3 +475,44 @@ constexpr std::array<T, N> __initarray(const T& value) {
     return detail::make_array(value, std::make_index_sequence<N>());
 }
 /*******************************************************/
+
+// #define SINGLE_TEST_CASE
+// #define DUMP_TEST_CASE 7219
+// #define TOT_TEST_CASE 10000
+
+void dump() {}
+
+void dump_ignore() {}
+
+void prep() {
+}
+
+// __attribute__((target("popcnt")))
+void solve() {
+}
+
+int main() {
+#if __cplusplus < 201402L or defined(_MSC_VER) and not defined(__clang__)
+    assert(false && "incompatible compiler variant detected.");
+#endif
+    untie;
+    prep();
+#ifdef SINGLE_TEST_CASE
+    solve();
+#else
+    read(int, t);
+    for (int i = 0; i < t; ++i) {
+#ifdef DUMP_TEST_CASE
+        if (t != (TOT_TEST_CASE)) {
+            solve();
+        } else if (i + 1 == (DUMP_TEST_CASE)) {
+            dump();
+        } else {
+            dump_ignore();
+        }
+#else
+        solve();
+#endif
+    }
+#endif
+}
