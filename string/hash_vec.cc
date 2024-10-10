@@ -73,7 +73,7 @@ struct range_hash {
     template <typename T>
     range_hash(const T& vec) {
         hp.emplace_back();
-        hash_vec<ll> hs(vec.size());
+        hash_vec<ll> hs(vec.size() + 1);
         for (auto&& x : vec) {
             hs.push_back(x);
             hp.emplace_back(hs.hash());
