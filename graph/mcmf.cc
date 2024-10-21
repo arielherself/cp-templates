@@ -7,19 +7,15 @@ struct mcmf {
         int rev;
         int mark;
     };
-
     vector<vector<edge>> edges;
     vector<ll> dis;
     vector<bool> vis;
     ll ret;
-
     mcmf(int n) : edges(n + 1), dis(n + 1), vis(n + 1) {}
-
     void add_edge(int from, int to, ll cap, ll cost, int mark = 0, int mark_rev = 0) {
         edges[from].push_back({ to, cap, 0, cost, int(edges[to].size()), mark });
         edges[to].push_back({ from, 0, 0, -cost, int(edges[from].size() - 1), mark_rev });
     }
-
     bool sp(int s, int t) {
         dis.assign(edges.size(), INFLL);
         dis[s] = 0;
@@ -38,7 +34,6 @@ struct mcmf {
         }
         return dis[t] != INFLL;
     }
-
     ll dfs(int s, int t, ll cap) {
         if (vis[s]) {
             return 0;
@@ -64,7 +59,6 @@ struct mcmf {
         }
         return res;
     }
-
     // returns: (flow, cost)
     pll run(int s, int t) {
         ll res = 0; ret = 0;
@@ -72,6 +66,9 @@ struct mcmf {
             vis.assign(edges.size(), 0);
             ll curr = dfs(s, t, LLONG_MAX);
             res += curr;
+            // BUG: this is a temporary fix of the infinite-looping issue observed
+            // when dealing with networks with negative weights.
+            if (curr == 0) break;
         }
         return { res, ret };
     }
