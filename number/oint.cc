@@ -5,23 +5,18 @@ struct oint {
     T val;
     oint() : carry(0), val(0) {}
     oint(const T& v) : carry(v > MAX), val(v % MDL) {}
+    oint(const bool& carry, const T& val) : carry(carry), val(val) {}
     friend oint operator*(const oint& a, const oint& b) {
-        oint res;
-        res.carry = a.carry | b.carry;
-        if (not res.carry and a.val > MAX / b.val) {
-            res.carry = 1;
-        }
-        res.val = (a.val * b.val) % MDL;
-        return res;
+        return {
+            a.carry or b.carry or a.val > MAX / b.val,
+            (a.val * b.val) % MDL,
+        };
     }
     friend oint operator+(const oint& a, const oint& b) {
-        oint res;
-        res.carry = a.carry | b.carry;
-        if (not res.carry and a.val > MAX - b.val) {
-            res.carry = 1;
-        }
-        res.val = (a.val + b.val) % MDL;
-        return res;
+        return {
+            a.carry or b.carry or a.val > MAX - b.val,
+            (a.val + b.val) % MDL,
+        };
     }
     oint& operator+=(const oint& rhs) { return *this = *this + rhs; }
     oint& operator*=(const oint& rhs) { return *this = *this * rhs; }
