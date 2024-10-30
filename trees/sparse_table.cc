@@ -1,6 +1,7 @@
 template<typename _Tp, typename _Op = function<_Tp(const _Tp&, const _Tp&)>> struct sparse_table {
     _Op op;
     vector<vector<_Tp>> st;
+    sparse_table() {}
     template <typename ReverseIterator>
     sparse_table(ReverseIterator __first, ReverseIterator __last, _Op&& __operation) {
         op = __operation;
