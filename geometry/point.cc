@@ -14,10 +14,10 @@ template <typename T> struct point {
     inline point operator*(const T& a) const { return point(x * a, y * a); }
     inline T operator*(const point& rhs) const { return x * rhs.y - y * rhs.x; }
     inline point operator/(const T& a) const { return point(x / a, y / a); }
-    inline point operator+=(const point& rhs) { x += rhs.x, y += rhs.y; return *this; }
-    inline point operator-=(const point& rhs) { x -= rhs.x, y -= rhs.y; return *this; }
-    inline point operator*=(const T& a) { x *= a, y *= a; return *this; }
-    inline point operator/=(const T& a) { x /= a, y /= a; return *this; }
+    inline point& operator+=(const point& rhs) { x += rhs.x, y += rhs.y; return *this; }
+    inline point& operator-=(const point& rhs) { x -= rhs.x, y -= rhs.y; return *this; }
+    inline point& operator*=(const T& a) { x *= a, y *= a; return *this; }
+    inline point& operator/=(const T& a) { x /= a, y /= a; return *this; }
 
     inline bool operator==(const point& rhs) const { return x == rhs.x and y == rhs.y; }
     inline bool operator!=(const point& rhs) const { return not (*this == rhs); }
