@@ -3,7 +3,7 @@ struct fractional {
     T p, q;
     inline void reduce(void) {
         if (q < 0) p = -p, q = -q;
-        if (p == 0) q = 1; else { T g = mygcd(p, q); p /= g; q /= g; }
+        if (p == 0) q = 1; else { T g = mygcd(abs(p), abs(q)); p /= g; q /= g; }
     }
     fractional(void) : p(0), q(1) {}
     template <typename U>
@@ -25,4 +25,5 @@ struct fractional {
     friend inline bool operator>=(const fractional& lhs, const fractional& rhs) { return not (lhs < rhs); }
     friend inline bool operator>(const fractional& lhs, const fractional& rhs) { return lhs >= rhs and lhs != rhs; }
     friend inline bool operator<=(const fractional& lhs, const fractional& rhs) { return lhs < rhs or lhs == rhs; }
+    friend inline ostream& operator<<(ostream& out, const fractional& x) { return out << x.p << '/' << x.q; }
 };
