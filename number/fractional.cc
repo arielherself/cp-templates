@@ -1,6 +1,3 @@
-template <typename T>
-inline T mygcd(T a, T b) { return b == 0 ? a : mygcd(b, a % b); }
-
 template<typename T>
 struct fractional {
     T p, q;
@@ -12,20 +9,20 @@ struct fractional {
     template <typename U>
     fractional(const U& p) : p(p), q(1) { reduce(); }
     fractional(const T& p, const T& q) : p(p), q(q) { reduce(); }
-    inline fractional operator+(void) const { return *this; }
-    inline fractional operator-(void) const { return { -p, q }; }
-    inline fractional operator+(const fractional& rhs) const { return { p * rhs.q + q * rhs.p, q * rhs.q }; }
-    inline fractional operator-(const fractional& rhs) const { return *this + (-rhs); }
-    inline fractional operator*(const fractional& rhs) const { return { p * rhs.p, q * rhs.q }; }
-    inline fractional operator/(const fractional& rhs) const { return *this * fractional(rhs.q, rhs.p); }
+    inline friend fractional operator+(const fractional& lhs) { return *lhs; }
+    inline friend fractional operator-(const fractional& lhs) { return { -lhs.p, lhs.q }; }
+    inline friend fractional operator+(const fractional& lhs, const fractional& rhs) { return { lhs.p * rhs.q + lhs.q * rhs.p, lhs.q * rhs.q }; }
+    inline friend fractional operator-(const fractional& lhs, const fractional& rhs) { return lhs + (-rhs); }
+    inline friend fractional operator*(const fractional& lhs, const fractional& rhs) { return { lhs.p * rhs.p, lhs.q * rhs.q }; }
+    inline friend fractional operator/(const fractional& lhs, const fractional& rhs) { return lhs * fractional(rhs.q, rhs.p); }
     inline fractional& operator+=(const fractional& rhs) { return *this = *this + rhs; }
     inline fractional& operator-=(const fractional& rhs) { return *this = *this - rhs; }
     inline fractional& operator*=(const fractional& rhs) { return *this = *this * rhs; }
     inline fractional& operator/=(const fractional& rhs) { return *this = *this / rhs; }
-    inline bool operator==(const fractional& rhs) const { return p == rhs.p and q == rhs.q; }
-    inline bool operator!=(const fractional& rhs) const { return not (*this == rhs); }
-    inline bool operator<(const fractional& rhs) const { return (*this - rhs).p < 0; }
-    inline bool operator>=(const fractional& rhs) const { return not (*this < rhs); }
-    inline bool operator>(const fractional& rhs) const { return *this >= rhs and *this != rhs; }
-    inline bool operator<=(const fractional& rhs) const { return *this < rhs or *this == rhs; }
+    inline friend bool operator==(const fractional& lhs, const fractional& rhs) { return lhs.p == rhs.p and lhs.q == rhs.q; }
+    inline friend bool operator!=(const fractional& lhs, const fractional& rhs) { return not (lhs == rhs); }
+    inline friend bool operator<(const fractional& lhs, const fractional& rhs) { return (lhs - rhs).p < 0; }
+    inline friend bool operator>=(const fractional& lhs, const fractional& rhs) { return not (lhs < rhs); }
+    inline friend bool operator>(const fractional& lhs, const fractional& rhs) { return lhs >= rhs and lhs != rhs; }
+    inline friend bool operator<=(const fractional& lhs, const fractional& rhs) { return lhs < rhs or lhs == rhs; }
 };
