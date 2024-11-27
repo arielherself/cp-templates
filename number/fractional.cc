@@ -33,9 +33,7 @@ struct fractional {
         string right(point, s.end());
         if (right.size()) right.erase(right.begin());
         T divisor = 1;
-        for (auto&& _ : right) {
-            divisor *= 10;
-        }
+        for (auto&& _ : right) divisor *= 10;
         T l, r;
         stringstream(left) >> l;
         stringstream(right) >> r;
