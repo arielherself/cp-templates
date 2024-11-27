@@ -26,4 +26,20 @@ struct fractional {
     friend inline bool operator>(const fractional& lhs, const fractional& rhs) { return lhs >= rhs and lhs != rhs; }
     friend inline bool operator<=(const fractional& lhs, const fractional& rhs) { return lhs < rhs or lhs == rhs; }
     friend inline ostream& operator<<(ostream& out, const fractional& x) { return out << x.p << '/' << x.q; }
+    friend inline istream& operator>>(istream& in, fractional& x) {
+        read(string, s);
+        auto point = find(s.begin(), s.end(), '.');
+        string left(s.begin(), point);
+        string right(point, s.end());
+        if (right.size()) right.erase(right.begin());
+        T divisor = 1;
+        for (auto&& _ : right) {
+            divisor *= 10;
+        }
+        T l, r;
+        stringstream(left) >> l;
+        stringstream(right) >> r;
+        x = l + fractional(r, divisor);
+        return in;
+    }
 };
