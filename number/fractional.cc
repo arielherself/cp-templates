@@ -41,5 +41,5 @@ struct fractional {
         return in;
     }
     template <typename U, typename = typename enable_if<is_convertible_v<T, U>>::type>
-    inline U into(void) const { return U(p) / q; }
+    inline U into(void) const { return static_cast<U>(p) / q; }
 };
