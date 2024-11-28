@@ -12,6 +12,8 @@ using namespace std;
 constexpr void __() {}
 #define __AS_PROCEDURE(...) __(); __VA_ARGS__; __()
 #define __as_typeof(container) remove_reference<decltype(container)>::type
+template <typename T> struct argument_type;
+template <typename T, typename U> struct argument_type<T(U)> { using type = U; };
 
 /* type aliases */
 #if LONG_LONG_MAX != INT64_MAX
@@ -221,9 +223,9 @@ std::ostream& operator<<(std::ostream& dest, const int128& value) {
 }
 template<typename T> void __read(T& x) { cin >> x; }
 template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __read(args...); }
-#define read(type, ...) __AS_PROCEDURE(type __VA_ARGS__; __read(__VA_ARGS__);)
-#define readvec(type, a, n) __AS_PROCEDURE(vector<type> a(n); for (auto& x : a) cin >> x;)
-#define readvec1(type, a, n) __AS_PROCEDURE(vector<type> a((n) + 1); copy_n(ii<type>(cin), (n), a.begin() + 1);)
+#define read(t, ...) __AS_PROCEDURE(argument_type<void(t)>::type __VA_ARGS__; __read(__VA_ARGS__);)
+#define readvec(t, a, n) __AS_PROCEDURE(vector<argument_type<void(t)>::type> a(n); for (auto& x : a) cin >> x;)
+#define readvec1(t, a, n) __AS_PROCEDURE(vector<argument_type<void(t)>::type> a((n) + 1); copy_n(ii<argument_type<void(t)>::type>(cin), (n), a.begin() + 1);)
 #define putvec(a) __AS_PROCEDURE(copy(a.begin(), a.end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
 #define putvec1(a) __AS_PROCEDURE(copy(a.begin() + 1, a.end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
 #define putvec_eol(a) __AS_PROCEDURE(copy(a.begin(), a.end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
