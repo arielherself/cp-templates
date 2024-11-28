@@ -40,4 +40,6 @@ struct fractional {
         x = l + fractional(r, divisor);
         return in;
     }
+    template <typename U, typename = typename enable_if<is_convertible_v<T, U>>::type>
+    inline U into(void) const { return U(p) / q; }
 };
