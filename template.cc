@@ -177,6 +177,10 @@ template<typename T, typename U> ostream& operator<<(ostream& out, const pair<T,
     out << "{" << p.first << ", " << p.second << "}";
     return out;
 }
+template<typename T, size_t N> istream& operator>>(istream& in, array<T, N>& a) {
+    for (size_t i = 0; i < N; ++i) in >> a[i];
+    return in;
+}
 template<typename Char, typename Traits, typename Tuple, std::size_t... Index>
 void print_tuple_impl(std::basic_ostream<Char, Traits>& os, const Tuple& t, std::index_sequence<Index...>) {
     using swallow = int[]; // guaranties left to right order
@@ -376,11 +380,11 @@ template <ll mdl> struct MLL {
     friend MLL operator%(const MLL& lhs, const MLL& rhs) { return mod(lhs.val - (lhs / rhs).val, mdl); }
     friend bool operator==(const MLL& lhs, const MLL& rhs) { return lhs.val == rhs.val; }
     friend bool operator!=(const MLL& lhs, const MLL& rhs) { return lhs.val != rhs.val; }
-    MLL& operator+=(const MLL& rhs) { return *this = *this + rhs; }
-    MLL& operator-=(const MLL& rhs) { return *this = *this - rhs; }
-    MLL& operator*=(const MLL& rhs) { return *this = *this * rhs; }
-    MLL& operator/=(const MLL& rhs) { return *this = *this / rhs; }
-    MLL& operator%=(const MLL& rhs) { return *this = *this % rhs; }
+    void operator+=(const MLL& rhs) { return *this = *this + rhs; }
+    void operator-=(const MLL& rhs) { return *this = *this - rhs; }
+    void operator*=(const MLL& rhs) { return *this = *this * rhs; }
+    void operator/=(const MLL& rhs) { return *this = *this / rhs; }
+    void operator%=(const MLL& rhs) { return *this = *this % rhs; }
 };
 
 template <ll mdl>
