@@ -401,11 +401,11 @@ template <ll mdl> struct MLL {
     friend MLL operator%(const MLL& lhs, const MLL& rhs) { return mod(lhs.val - (lhs / rhs).val, mdl); }
     friend bool operator==(const MLL& lhs, const MLL& rhs) { return lhs.val == rhs.val; }
     friend bool operator!=(const MLL& lhs, const MLL& rhs) { return lhs.val != rhs.val; }
-    void operator+=(const MLL& rhs) { return *this = *this + rhs; }
-    void operator-=(const MLL& rhs) { return *this = *this - rhs; }
-    void operator*=(const MLL& rhs) { return *this = *this * rhs; }
-    void operator/=(const MLL& rhs) { return *this = *this / rhs; }
-    void operator%=(const MLL& rhs) { return *this = *this % rhs; }
+    MLL& operator+=(const MLL& rhs) { return *this = *this + rhs; }
+    MLL& operator-=(const MLL& rhs) { return *this = *this - rhs; }
+    MLL& operator*=(const MLL& rhs) { return *this = *this * rhs; }
+    MLL& operator/=(const MLL& rhs) { return *this = *this / rhs; }
+    MLL& operator%=(const MLL& rhs) { return *this = *this % rhs; }
 };
 
 template <ll mdl>
