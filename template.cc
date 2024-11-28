@@ -183,6 +183,10 @@ template<typename T, size_t N> istream& operator>>(istream& in, array<T, N>& a) 
     for (size_t i = 0; i < N; ++i) in >> a[i];
     return in;
 }
+template <typename T, size_t N> ostream& operator<<(ostream& out, const array<T, N>& a) {
+    for (auto&& i : a) out << i << ' ';
+    return out;
+}
 template<typename Char, typename Traits, typename Tuple, std::size_t... Index>
 void print_tuple_impl(std::basic_ostream<Char, Traits>& os, const Tuple& t, std::index_sequence<Index...>) {
     using swallow = int[]; // guaranties left to right order
