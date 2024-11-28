@@ -268,6 +268,21 @@ return_t qpow(ll b, ll p) {
     else return half * half;
 }
 
+// Accurately find `i` 'th root of `n` (taking the floor)
+inline ll root(ll n, ll i) {
+    ll l = 0, r = pow(LLONG_MAX, ld(1) / i);
+    while (l < r) {
+        ll mid = l + r + 1 >> 1;
+        if (qpow<int128>(mid, i) <= n) {
+            l = mid;
+        } else {
+            r = mid - 1;
+        }
+    }
+    return l;
+}
+
+
 #define comb(n, k) ((n) < 0 or (k) < 0 or (n) < (k) ? 0 : fact[n] / fact[k] / fact[(n) - (k)])
 #define fastcomb(n, k) ((n) < 0 or (k) < 0 or (n) < (k) ? 0 : fact[n] * factrev[k] * factrev[(n) - (k)])
 
