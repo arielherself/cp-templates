@@ -172,6 +172,17 @@ template <typename T, typename Iterator> pair<size_t, unordered_map<T, size_t, s
 
 /* io */
 #define untie __AS_PROCEDURE(ios_base::sync_with_stdio(0), cin.tie(NULL))
+
+// add declarations to avoid cyclic dependency
+template<typename T, typename U> istream& operator>>(istream&, pair<T, U>&);
+template<typename T, typename U> ostream& operator<<(ostream&, const pair<T, U>&);
+template<typename T, size_t N> istream& operator>>(istream&, array<T, N>&);
+template <typename T, size_t N> ostream& operator<<(ostream&, const array<T, N>&);
+template<typename Char, typename Traits, typename... Args>
+decltype(auto) operator<<(std::basic_ostream<Char, Traits>&, const std::tuple<Args...>&);
+template<typename T> ostream& operator<<(ostream&, const vector<T>&);
+std::ostream& operator<<(std::ostream&, const int128&);
+
 template<typename T, typename U> istream& operator>>(istream& in, pair<T, U>& p) {
     return in >> p.first >> p.second;
 }
@@ -269,6 +280,8 @@ return_t qpow(ll b, ll p) {
 }
 
 // Accurately find `i` 'th root of `n` (taking the floor)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wparentheses"
 inline ll root(ll n, ll i) {
     ll l = 0, r = pow(LLONG_MAX, ld(1) / i);
     while (l < r) {
@@ -281,6 +294,7 @@ inline ll root(ll n, ll i) {
     }
     return l;
 }
+#pragma GCC diagnostic pop
 
 
 #define comb(n, k) ((n) < 0 or (k) < 0 or (n) < (k) ? 0 : fact[n] / fact[k] / fact[(n) - (k)])
