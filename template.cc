@@ -1,5 +1,5 @@
 // #pragma GCC target("popcnt,lzcnt,abm,bmi,bmi2")
-#pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast,unroll-loops")
 /************* This code requires C++17. ***************/
 
 #include<bits/stdc++.h>
@@ -541,7 +541,7 @@ void solve() {
 
 int main() {
 #if __cplusplus < 201402L or defined(_MSC_VER) and not defined(__clang__)
-    assert(false && "incompatible compiler variant detected.");
+    static_assert(false, "incompatible compiler variant detected.");
 #endif
     untie;
     prep();
