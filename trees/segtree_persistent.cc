@@ -8,7 +8,6 @@ template <typename Addable_Info> struct segtree {
     vector<Node> d;
     vector<size_type> version_root;
     size_type _max;
-
     void _copy(size_type& virt) {
         int o = virt;
         virt = d.size();
@@ -45,6 +44,7 @@ template <typename Addable_Info> struct segtree {
             _copy(d[p].rson);
             _set(m + 1, t, d[p].rson, x, c);
         }
+        d[p].info = d[d[p].lson].info + d[d[p].rson].info;
     }
     size_type _clone(size_type version) {
         d.emplace_back(d[version_root[version]]);
@@ -77,11 +77,9 @@ template <typename Addable_Info> struct segtree {
         return range_query(version, loc, loc);
     }
 };
-
 struct Info {
-    int val;
+    int val = INF;
 };
-
 Info operator+(const Info& lhs, const Info& rhs) {
-    return { lhs.val + rhs.val };
+    return { min(lhs.val, rhs.val) };
 }
