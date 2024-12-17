@@ -173,7 +173,7 @@ template <typename T, typename Iterator> pair<size_t, unordered_map<T, size_t, s
 /* io */
 #define untie __AS_PROCEDURE(ios_base::sync_with_stdio(0), cin.tie(NULL))
 
-// add declarations to avoid cyclic dependency
+// add declarations to avoid circular dependency
 template<typename T, typename U> istream& operator>>(istream&, pair<T, U>&);
 template<typename T, typename U> ostream& operator<<(ostream&, const pair<T, U>&);
 template<typename T, size_t N> istream& operator>>(istream&, array<T, N>&);
