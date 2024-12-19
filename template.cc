@@ -132,13 +132,15 @@ struct pair_hash {
 uniform_int_distribution<mt19937::result_type> dist(PRIME);
 const size_t __array_hash_b = 31, __array_hash_mdl1 = dist(rd), __array_hash_mdl2 = dist(rd);
 struct array_hash {
+    safe_hash hasher;
     template <typename Sequence>
     size_t operator()(const Sequence& arr) const {
         size_t pw1 = 1, pw2 = 1;
         size_t res1 = 0, res2 = 0;
         for (auto&& x : arr) {
-            res1 = (res1 + x * pw1) % __array_hash_mdl1;
-            res2 = (res2 + x * pw2) % __array_hash_mdl2;
+            auto h = hasher(x);
+            res1 = (res1 + h * pw1) % __array_hash_mdl1;
+            res2 = (res2 + h * pw2) % __array_hash_mdl2;
             pw1 = (pw1 * __array_hash_b) % __array_hash_mdl1;
             pw2 = (pw2 * __array_hash_b) % __array_hash_mdl2;
         }
