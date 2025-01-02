@@ -80,7 +80,6 @@ struct SA {
         if (a > b) {
             std::swap(a, b);
         }
-        deb(a, b, rmq(a, b));
         return std::min({n - i, n - j, rmq(a, b)});
     }
 
