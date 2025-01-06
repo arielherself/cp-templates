@@ -5,7 +5,7 @@ template <typename T> struct point {
     point(const T& x, const T& y) : x(x), y(y) {}
 
     inline T square() const { return x * x + y * y; }
-    inline ld norm() const { return sqrt(ld(square())); }
+    inline ld norm() const { return sqrt((long double)(square())); }
 
     inline point operator+(const point& rhs) const { return point(x + rhs.x, y + rhs.y); }
     inline point operator-(const point& rhs) const { return point(x - rhs.x, y - rhs.y); }
