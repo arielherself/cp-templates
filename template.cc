@@ -296,7 +296,7 @@ ll qpow(ll b, ll p, ll mod) {
 #pragma GCC diagnostic ignored "-Wparentheses"
 // Accurately find `i` 'th root of `n` (taking the floor)
 inline ll root(ll n, ll i) {
-    ll l = 0, r = pow(LLONG_MAX, (long double)(1) / i);
+    ll l = 0, r = pow(INFLL, (long double)(1) / i);
     while (l < r) {
         ll mid = l + r + 1 >> 1;
         if (qpow<int128>(mid, i) <= n) {
