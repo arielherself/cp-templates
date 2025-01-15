@@ -28,7 +28,7 @@ private:
         else set(m + 1, t, p * 2 + 1, x, c);
         pull(p);
     }
-    
+
     void range_apply(size_type s, size_type t, size_type p, size_type l, size_type r, const tag_type& c) {
         if (l <= s && t <= r) {
             d[p].apply(c, t - s + 1);
@@ -73,7 +73,7 @@ public:
     void set(size_type i, const info_type& c) {
         set({}, _max, 1, i, c);
     }
-    
+
     void range_apply(size_type l, size_type r, const tag_type& c) {
         range_apply({}, _max, 1, l, r, c);
     }
