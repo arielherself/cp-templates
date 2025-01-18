@@ -6,12 +6,12 @@ public:
         iota(c.begin(), c.end(), 0);
         sz.assign(n, 1);
     }
-    
+
     size_t query(size_t i) {
         if (c[i] != i) c[i] = query(c[i]);
         return c[i];
     }
-    
+
     void merge(size_t i, size_t j) {
         if (connected(i, j)) return;
         sz[query(j)] += sz[query(i)];
