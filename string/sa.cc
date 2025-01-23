@@ -55,7 +55,7 @@ struct SA {
 			}
 		}
 		int m = lc.size();
-		int lgm = lg2(m);
+		int lgm = m == 0 ? 0 : lg2(m);
 		st = vector(lgm + 1, vector<int>(m));
 		st[0] = lc;
 		for (int j = 0; j < lgm; j++) {
