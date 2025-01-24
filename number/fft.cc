@@ -32,6 +32,7 @@ void fft(vector<complex<ld>>& y, bool idft) {
 	}
 }
 
+// WARN: resize after use!!!
 vector<int> multiply(const vector<int>& a, const vector<int>& b) {
 	vector<complex<ld>> A(a.begin(), a.end()), B(b.begin(), b.end());
 	int n = 1;

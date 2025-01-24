@@ -44,6 +44,7 @@ void ntt(vector<MLL<M>>& y, bool idft) {
 	}
 }
 
+// WARN: resize after use!!!
 template <ll M>
 vector<MLL<M>> multiply(const vector<MLL<M>>& a, const vector<MLL<M>>& b) {
 	using mll = MLL<M>;

@@ -52,6 +52,7 @@ void ntt(vector<ll>& y, bool idft) {
 		}
 	}
 }
+// WARN: resize after use!!!
 template <ll M>
 vector<ll> multiply(const vector<ll>& a, const vector<ll>& b) {
 	vector<ll> A(a.begin(), a.end()), B(b.begin(), b.end());
