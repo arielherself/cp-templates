@@ -38,6 +38,8 @@ using tldi = tuple<ll, ld, int>;	  using tldl = tuple<ll, ld, ll>;	   using tldd
 using tdii = tuple<ld, int, int>;	  using tdil = tuple<ld, int, ll>;	   using tdid = tuple<ld, int, ld>;
 using tdli = tuple<ld, ll, int>;	  using tdll = tuple<ld, ll, ll>;	   using tdld = tuple<ld, ll, ld>;
 using tddi = tuple<ld, ld, int>;	  using tddl = tuple<ld, ld, ll>;	   using tddd = tuple<ld, ld, ld>;
+template <typename T, size_t N, size_t M> using matrix = array<array<T, M>, N>;
+template <typename T, size_t N, size_t M, size_t W> using cube = array<array<array<T, W>, M>, N>;
 template <typename T> using max_heap = priority_queue<T>;
 template <typename T> using min_heap = priority_queue<T, vector<T>, greater<>>;
 template <typename T> using oi = ostream_iterator<T>;
@@ -244,8 +246,8 @@ template<typename T, typename... U> void __read(T& x, U&... args) { cin >> x; __
 #define read(t, ...) __AS_PROCEDURE(argument_type<void(t)>::type __VA_ARGS__; __read(__VA_ARGS__);)
 #define readvec(t, a, n) __AS_PROCEDURE(vector<argument_type<void(t)>::type> a(n); for (auto& x : (a)) cin >> x;)
 #define readvec1(t, a, n) __AS_PROCEDURE(vector<argument_type<void(t)>::type> a((n) + 1); copy_n(ii<argument_type<void(t)>::type>(cin), (n), (a).begin() + 1);)
-#define putvec(a) __AS_PROCEDURE(copy((a).begin(), (a).end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
-#define putvec1(a) __AS_PROCEDURE(copy((a).begin() + 1, (a).end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << endl;)
+#define putvec(a) __AS_PROCEDURE(copy((a).begin(), (a).end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << '\n';)
+#define putvec1(a) __AS_PROCEDURE(copy((a).begin() + 1, (a).end(), oi<__as_typeof(a)::value_type>(cout, " ")); cout << '\n';)
 #define putvec_eol(a) __AS_PROCEDURE(copy((a).begin(), (a).end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
 #define putvec1_eol(a) __AS_PROCEDURE(copy((a).begin() + 1, (a).end(), oi<__as_typeof(a)::value_type>(cout, "\n"));)
 #define debug(x) __AS_PROCEDURE(cerr << #x" = " << (x) << endl;)
@@ -541,6 +543,12 @@ void prep() {
 // __attribute__((target("popcnt")))
 void solve() {
 }
+
+#ifdef SINGLE_TEST_CASE
+#warning: Will run single test case
+#else
+#warning: Will run multiple test cases
+#endif
 
 int main() {
 #if __cplusplus < 201402L or defined(_MSC_VER) and not defined(__clang__)
