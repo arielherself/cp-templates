@@ -30,19 +30,19 @@ struct ODT {
 		info.emplace(l, r, val);
 	}
 
-	void transform(const IndexType& l, const IndexType& r, const function<T(const Info&)>& operation) {
+	void transform(const IndexType& l, const IndexType& r, const function<T(const typename set<Info>::iterator&)>& operation) {
 		auto ri = split(r + 1), li = split(l);
 		for (; li != ri; ++li) {
-			li->val = operation(*li);
+			li->val = operation(li);
 		}
 	}
 
 	template <typename U>
-	U accumulate(const IndexType& l, const IndexType& r, U&& init, const function<U(const U&, const Info&)>& operation = std::plus()) {
+	U fold(const IndexType& l, const IndexType& r, U&& init, const function<U(const U&, const typename set<Info>::iterator&)>& operation = std::plus()) {
 		auto ri = split(r + 1), li = split(l);
 		U res = init;
 		for (; li != ri; ++li) {
-			res = operation(res, *li);
+			res = operation(res, li);
 		}
 		return res;
 	}
