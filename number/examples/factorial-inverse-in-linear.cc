@@ -21,7 +21,7 @@ void prep() {
 	}
 }
 
-ll mycomb(int n, int k) {
+always_inline ll mycomb(int n, int k) {
 	if (n < 0 or k < 0 or n < k) return 0;
 	return fact[n] * factrev[k] % M * factrev[n - k] % M;
 }

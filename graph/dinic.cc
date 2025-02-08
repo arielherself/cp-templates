@@ -24,7 +24,7 @@ struct dinic {
 		layer[s] = 1;
 		dq.emplace_back(s, 1);
 		while (dq.size()) {
-			popfront(dq, v, l);
+			auto [v, l] = popfront(dq);
 			for (auto&& e : edges[v]) {
 				if (layer[e.to] == 0 and e.cap > e.flow) {
 					layer[e.to] = l + 1;

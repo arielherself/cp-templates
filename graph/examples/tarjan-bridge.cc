@@ -1,5 +1,5 @@
 vector<bool> isbridge(m);
-{
+{  // WARN: don't add multiple edges!
 	vector<int> low(n + 1), dfn(n + 1), father(n + 1);
 	int dfs_clock = 0;
 	int cnt_bridge = 0;
