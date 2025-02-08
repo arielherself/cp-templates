@@ -2,7 +2,14 @@ class quick_union {
 private:
 	vector<size_t> c, sz;
 public:
+	quick_union() = default;
 	always_inline quick_union(size_t n) : c(n), sz(n) {
+		iota(c.begin(), c.end(), 0);
+		sz.assign(n, 1);
+	}
+
+	always_inline void resize(size_t n) {
+		c.resize(n);
 		iota(c.begin(), c.end(), 0);
 		sz.assign(n, 1);
 	}
