@@ -3,6 +3,7 @@
 /************* This code requires C++17. ***************/
 
 #include<bits/stdc++.h>
+#include<tr2/dynamic_bitset>
 using namespace std;
 
 /* macro helpers */
@@ -45,6 +46,7 @@ template <typename T> using max_heap = priority_queue<T>;
 template <typename T> using min_heap = priority_queue<T, vector<T>, greater<>>;
 template <typename T> using oi = ostream_iterator<T>;
 template <typename T> using ii = istream_iterator<T>;
+using tr2::dynamic_bitset;
 
 /* constants */
 constexpr int INF = 0x3f3f3f3f;
