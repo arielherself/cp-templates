@@ -14,6 +14,7 @@ constexpr void __() {}
 #define __as_typeof(container) remove_reference<decltype(container)>::type
 template <typename T> struct argument_type;
 template <typename T, typename U> struct argument_type<T(U)> { using type = U; };
+#define always_inline __attribute__((always_inline))
 
 /* type aliases */
 #if LONG_LONG_MAX != INT64_MAX
@@ -25,19 +26,19 @@ using ull = unsigned long long;
 #endif
 using int128 = __int128_t;
 using uint128 = __uint128_t;
-using ld = __float128;	// up to 1e-9 precision in binary search
-using pii = pair<int, int>;			  using pil = pair<int, ll>;		   using pid = pair<int, ld>;
-using pli = pair<ll, int>;			  using pll = pair<ll, ll>;			   using pld = pair<ll, ld>;
-using pdi = pair<ld, int>;			  using pdl = pair<ld, ll>;			   using pdd = pair<ld, ld>;
-using tiii = tuple<int, int, int>;	  using tiil = tuple<int, int, ll>;    using tiid = tuple<int, int, ld>;
-using tili = tuple<int, ll, int>;	  using till = tuple<int, ll, ll>;	   using tild = tuple<int, ll, ld>;
-using tidi = tuple<int, ld, int>;	  using tidl = tuple<int, ld, ll>;	   using tidd = tuple<int, ld, ld>;
-using tlii = tuple<ll, int, int>;	  using tlil = tuple<ll, int, ll>;	   using tlid = tuple<ll, int, ld>;
-using tlli = tuple<ll, ll, int>;	  using tlll = tuple<ll, ll, ll>;	   using tlld = tuple<ll, ll, ld>;
-using tldi = tuple<ll, ld, int>;	  using tldl = tuple<ll, ld, ll>;	   using tldd = tuple<ll, ld, ld>;
-using tdii = tuple<ld, int, int>;	  using tdil = tuple<ld, int, ll>;	   using tdid = tuple<ld, int, ld>;
-using tdli = tuple<ld, ll, int>;	  using tdll = tuple<ld, ll, ll>;	   using tdld = tuple<ld, ll, ld>;
-using tddi = tuple<ld, ld, int>;	  using tddl = tuple<ld, ld, ll>;	   using tddd = tuple<ld, ld, ld>;
+using ld = __float128;  // up to 1e-9 precision in binary search, but more than 7x slower
+using pii = pair<int, int>;			using pil = pair<int, ll>;			using pid = pair<int, ld>;
+using pli = pair<ll, int>;			using pll = pair<ll, ll>;			using pld = pair<ll, ld>;
+using pdi = pair<ld, int>;			using pdl = pair<ld, ll>;			using pdd = pair<ld, ld>;
+using tiii = tuple<int, int, int>;	using tiil = tuple<int, int, ll>;   using tiid = tuple<int, int, ld>;
+using tili = tuple<int, ll, int>;	using till = tuple<int, ll, ll>;	using tild = tuple<int, ll, ld>;
+using tidi = tuple<int, ld, int>;	using tidl = tuple<int, ld, ll>;	using tidd = tuple<int, ld, ld>;
+using tlii = tuple<ll, int, int>;	using tlil = tuple<ll, int, ll>;	using tlid = tuple<ll, int, ld>;
+using tlli = tuple<ll, ll, int>;	using tlll = tuple<ll, ll, ll>;		using tlld = tuple<ll, ll, ld>;
+using tldi = tuple<ll, ld, int>;	using tldl = tuple<ll, ld, ll>;		using tldd = tuple<ll, ld, ld>;
+using tdii = tuple<ld, int, int>;	using tdil = tuple<ld, int, ll>;	using tdid = tuple<ld, int, ld>;
+using tdli = tuple<ld, ll, int>;	using tdll = tuple<ld, ll, ll>;		using tdld = tuple<ld, ll, ld>;
+using tddi = tuple<ld, ld, int>;	using tddl = tuple<ld, ld, ll>;		using tddd = tuple<ld, ld, ld>;
 template <typename T, size_t N, size_t M> using matrix = array<array<T, M>, N>;
 template <typename T, size_t N, size_t M, size_t W> using cube = array<array<array<T, W>, M>, N>;
 template <typename T> using max_heap = priority_queue<T>;
@@ -57,6 +58,7 @@ constexpr int128 INT128_MAX = numeric_limits<int128>::max();
 constexpr uint128 UINT128_MAX = numeric_limits<uint128>::max();
 constexpr int128 INT128_MIN = numeric_limits<int128>::min();
 constexpr uint128 UINT128_MIN = numeric_limits<uint128>::min();
+constexpr ld PI = 3.141592653589793238462643383279502884L;
 
 /* random */
 
@@ -276,7 +278,7 @@ inline auto popfront(Container& q) {
 
 /* math */
 template <typename return_t>
-return_t qpow(ll b, ll p) {
+constexpr return_t qpow(ll b, ll p) {
 	if (b == 0 and p != 0) return 0;
 	if (p == 0) return 1;
 	return_t half = qpow<return_t>(b, p / 2);
@@ -285,7 +287,7 @@ return_t qpow(ll b, ll p) {
 }
 
 // dynamic modulus
-ll qpow(ll b, ll p, ll mod) {
+constexpr ll qpow(ll b, ll p, ll mod) {
 	if (b == 0 and p != 0) return 0;
 	if (p == 0) return 1;
 	ll half = qpow(b, p / 2, mod);
@@ -297,7 +299,7 @@ ll qpow(ll b, ll p, ll mod) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wparentheses"
 // Accurately find `i` 'th root of `n` (taking the floor)
-inline ll root(ll n, ll i) {
+constexpr inline ll root(ll n, ll i) {
 	ll l = 0, r = pow(INFLL, (long double)(1) / i);
 	while (l < r) {
 		ll mid = l + r + 1 >> 1;
@@ -319,19 +321,19 @@ __attribute__((target("lzcnt")))
 constexpr inline int lg2(ll x) { return x == 0 ? -1 : sizeof(ll) * 8 - 1 - __builtin_clzll(x); }
 
 template <typename T>
-T mygcd(T a, T b) { return b == 0 ? a : mygcd(b, a % b); }
+constexpr T mygcd(T a, T b) { return b == 0 ? a : mygcd(b, a % b); }
 
-void __exgcd(ll a, ll b, ll& x, ll& y) {
-  if (b == 0) {
-	x = 1, y = 0;
-	return;
-  }
-  __exgcd(b, a % b, y, x);
-  y -= a / b * x;
+constexpr void __exgcd(ll a, ll b, ll& x, ll& y) {
+	if (b == 0) {
+		x = 1, y = 0;
+		return;
+	}
+	__exgcd(b, a % b, y, x);
+	y -= a / b * x;
 }
 
-ll inverse(ll a, ll b) {
-	ll x, y;
+constexpr ll inverse(ll a, ll b) {
+	ll x = 0, y = 0;
 	__exgcd(a, b, x, y);
 	return mod(x, b);
 }
@@ -370,7 +372,8 @@ vector<pii> decompose_prime(int N) {
 }
 
 /* string algorithms */
-vector<int> calc_next(string t) {  // pi function of t
+template <typename T>
+vector<int> calc_next(basic_string<T> t) {  // pi function of t
 	int n = (int)t.length();
 	vector<int> pi(n);
 	for (int i = 1; i < n; i++) {
@@ -381,7 +384,8 @@ vector<int> calc_next(string t) {  // pi function of t
 	}
 	return pi;
 }
-vector<int> calc_z(string t) {	// z function of t
+template <typename T>
+vector<int> calc_z(basic_string<T> t) {	// z function of t
 	int m = t.length();
 	vector<int> z;
 	z.push_back(m);
@@ -450,7 +454,7 @@ istream& operator>>(istream& in, MLL<mdl>& num) {
 
 // miscancellous
 template <typename T, typename U>
-bool chmax(T& lhs, const U& rhs) {
+constexpr bool chmax(T& lhs, const U& rhs) {
 	bool ret = lhs < rhs;
 	if (ret) {
 		lhs = rhs;
@@ -458,7 +462,7 @@ bool chmax(T& lhs, const U& rhs) {
 	return ret;
 }
 template <typename T, typename U>
-bool chmin(T& lhs, const U& rhs) {
+constexpr bool chmin(T& lhs, const U& rhs) {
 	bool ret = lhs > rhs;
 	if (ret) {
 		lhs = rhs;
@@ -539,6 +543,10 @@ void dump_ignore() {}
 
 void prep() {
 }
+
+/**
+ * My thought process
+ */
 
 // __attribute__((target("popcnt")))
 void solve() {
