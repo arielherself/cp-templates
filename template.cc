@@ -46,7 +46,7 @@ template <typename T> using max_heap = priority_queue<T>;
 template <typename T> using min_heap = priority_queue<T, vector<T>, greater<>>;
 template <typename T> using oi = ostream_iterator<T>;
 template <typename T> using ii = istream_iterator<T>;
-using tr2::dynamic_bitset;
+using dynamic_bitset = tr2::dynamic_bitset<>;
 
 /* constants */
 constexpr int INF = 0x3f3f3f3f;
@@ -130,7 +130,7 @@ struct pair_hash {
 		auto hash1 = safe_hash()(a.first);
 		auto hash2 = safe_hash()(a.second);
 		if (hash1 != hash2) {
-			return hash1 ^ hash2;
+			return hash1 << 3 ^ hash2;
 		}
 		return hash1;
 	}
