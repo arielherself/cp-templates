@@ -1,4 +1,4 @@
-constexpr int M = MDL;
+constexpr int M = MDL;  // WARN: check it!
 
 constexpr int N = 3e6 + 10;
 ll fact[N], factrev[N + 1], s[N + 1];
