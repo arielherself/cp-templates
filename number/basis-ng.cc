@@ -3,6 +3,8 @@ struct basis {
 	array<T, sizeof(T) * 8> p;
 	int cnt = 0;
 
+	basis() = default;
+
 	basis(const vector<T>& v) {
 		for (auto&& x : v) {
 			insert(x);
